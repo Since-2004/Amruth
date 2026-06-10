@@ -6,6 +6,14 @@ import jwt from "jsonwebtoken";
 import { z } from "zod";
 import { PrismaClient } from "@prisma/client";
 import { PrismaBetterSqlite3 } from "@prisma/adapter-better-sqlite3";
+import { execSync } from "child_process";
+
+try {
+  console.log("Ensuring database schema is up to date...");
+  execSync("npx prisma db push --accept-data-loss", { stdio: "inherit" });
+} catch (e) {
+  console.error("Database sync failed:", e);
+}
 
 const app = express();
 const adapter = new PrismaBetterSqlite3({
