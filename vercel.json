@@ -1,3 +1,9 @@
 {
-  "name": "amrut-frontend"
+  "name": "amrut-frontend",
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/index.html"
+    }
+  ]
 }
