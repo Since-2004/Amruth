@@ -345,7 +345,9 @@ app.get(
     if (!user) return res.status(401).json({ error: "Unauthorized" });
 
     const bookings = await prisma.booking.findMany({
-      where: { userId: user.id },
+      where: {
+        OR: [{ userId: user.id }, { email: user.email }],
+      },
       include: { slot: true },
       orderBy: { createdAt: "desc" },
     });
