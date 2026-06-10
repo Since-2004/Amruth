@@ -5,9 +5,15 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import { z } from "zod";
 import { PrismaClient } from "@prisma/client";
+import { PrismaBetterSqlite3 } from "@prisma/adapter-better-sqlite3";
 
 const app = express();
-const prisma = new PrismaClient();
+const adapter = new PrismaBetterSqlite3({
+  url: process.env.DATABASE_URL || "file:./prisma/dev.db",
+});
+const prisma = new PrismaClient({
+  adapter,
+});
 
 const PORT = Number(process.env.PORT || process.env.API_PORT || 5000);
 const CLIENT_ORIGIN = process.env.CLIENT_ORIGIN || "*";
