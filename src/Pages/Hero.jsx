@@ -68,14 +68,14 @@ function Hero() {
           <img
             src={bgremoved}
             alt="Amruth fitness trainer"
-            className="absolute bottom-0 left-1/2 -translate-x-1/2 h-[min(78vh,720px)] object-contain z-10"
+            className="absolute bottom-0 left-[45%] -translate-x-1/2 h-[min(78vh,720px)] object-contain z-10"
           />
 
           <motion.div
             initial={{ opacity: 0, x: 28 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.65, delay: 0.2 }}
-            className="absolute right-[-20px] xl:right-[-60px] top-[18%] z-20 w-[280px] rounded-[24px] border border-white/10 bg-black/60 backdrop-blur-xl p-5"
+            className="absolute right-[-40px] xl:right-[-100px] top-[15%] z-20 w-[280px] rounded-[24px] border border-white/10 bg-black/60 backdrop-blur-xl p-5"
           >
             <div className="flex items-center gap-3 text-[var(--brand-secondary)]">
               <FaCalendarAlt />
