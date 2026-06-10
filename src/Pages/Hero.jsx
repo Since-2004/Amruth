@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { motion } from "framer-motion";
-import { FaArrowRight, FaCalendarAlt, FaCheckCircle, FaDumbbell } from "react-icons/fa";
+import { FaArrowRight, FaCalendarAlt, FaCheckCircle, FaDumbbell, FaChevronUp } from "react-icons/fa";
 import bgremoved from "../assets/Images/bgremoved.png";
 
 function Hero() {
@@ -65,10 +65,29 @@ function Hero() {
         </motion.div>
 
         <div className="relative min-h-[520px] hidden lg:block">
+          {/* Chevron Background */}
+          <motion.div 
+            initial={{ opacity: 0, x: -30 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 1, delay: 0.3 }}
+            className="absolute top-[5%] left-[40%] z-0 pointer-events-none h-[90%] flex items-center"
+          >
+            <svg viewBox="0 0 600 800" className="h-full w-auto drop-shadow-2xl" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <linearGradient id="chevGradient" x1="0%" y1="50%" x2="100%" y2="50%">
+                  <stop offset="0%" stopColor="#7f1d1d" stopOpacity="0" />
+                  <stop offset="50%" stopColor="#b91c1c" stopOpacity="0.6" />
+                  <stop offset="100%" stopColor="#dc2626" stopOpacity="1" />
+                </linearGradient>
+              </defs>
+              <path d="M0 0 L400 400 L0 800 L200 800 L600 400 L200 0 Z" fill="url(#chevGradient)" />
+            </svg>
+          </motion.div>
+
           <img
             src={bgremoved}
             alt="Amruth fitness trainer"
-            className="absolute bottom-0 left-[45%] -translate-x-1/2 h-[min(78vh,720px)] object-contain z-10"
+            className="absolute bottom-0 left-[45%] -translate-x-1/2 h-[min(78vh,720px)] object-contain z-10 drop-shadow-2xl"
           />
 
           <motion.div

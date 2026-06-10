@@ -1,35 +1,35 @@
 import { Link } from "react-router-dom";
-import llogo from "../assets/Images/llogo.jpeg"
+import llogo from "../assets/Images/llogo.png"
 
 function Header() {
   return (
     <header className="fixed top-0 left-0 w-full z-[1000] backdrop-blur-xl bg-[rgba(5,5,5,0.75)] border-b border-[rgba(220,38,38,0.15)]">
       
-      <div className="max-w-7xl mx-auto h-[60px] px-8 flex items-center justify-between">
+      <div className="max-w-7xl mx-auto h-[90px] px-8 flex items-center justify-between">
         
         {/* LOGO */}
         <Link
           to="/"
-          className="flex items-center gap-4 group"
+          className="flex items-center gap-5 group"
         >
           {/* ICON */}
-        <div className="w-12 h-12 rounded-full overflow-hidden  flex items-center justify-center  transition-all duration-300 group-hover:scale-110">
+        <div className="h-20 w-20 flex items-center justify-center transition-all duration-300 group-hover:scale-105">
   
-  <img
-    src={llogo}
-    alt="logo"
-    className="w-full h-full object-cover"
-  />
+          <img
+            src={llogo}
+            alt="logo"
+            className="w-full h-full object-contain"
+          />
 
-</div>
+        </div>
 
           {/* TEXT */}
-          <div>
-            <h1 className="text-white text-2xl tracking-[2px] uppercase leading-none font-[Bebas_Neue]">
+          <div className="flex flex-col justify-center">
+            <h1 className="text-white text-lg tracking-[3px] uppercase leading-tight font-bold whitespace-nowrap">
               Amrut Ascend
             </h1>
 
-            <p className="text-[#ef4444] text-xs tracking-[4px] uppercase mt-1">
+            <p className="text-[#ef4444] text-[10px] tracking-[5px] uppercase mt-1.5 font-medium whitespace-nowrap">
                Trainer
             </p>
           </div>
