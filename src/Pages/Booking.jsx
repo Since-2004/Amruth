@@ -1,7 +1,8 @@
 import { useEffect, useMemo, useState } from "react";
 import { motion } from "framer-motion";
 import { FaCalendarAlt, FaCheckCircle, FaClock, FaPhoneAlt, FaVideo } from "react-icons/fa";
-import { createBooking, getSlots } from "../lib/api";
+import { createBooking, getSlots, getOwnerSettings } from "../lib/api";
+import { AnimatePresence } from "framer-motion";
 
 function formatSlot(date) {
   return new Intl.DateTimeFormat("en-IN", {
@@ -25,6 +26,8 @@ function Booking() {
   const [selectedSlotId, setSelectedSlotId] = useState("");
   const [status, setStatus] = useState({ type: "", message: "" });
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showSuccess, setShowSuccess] = useState(false);
+  const [upiSettings, setUpiSettings] = useState({ id: "amruthfitness@upi", name: "Amruth Fitness" });
   const [formData, setFormData] = useState({
     name: user?.name || "",
     email: user?.email || "",
@@ -40,6 +43,12 @@ function Booking() {
         setSelectedSlotId(data.slots[0]?.id || "");
       })
       .catch((error) => setStatus({ type: "error", message: error.message }));
+
+    getOwnerSettings().then((data) => {
+      if (data.settings) {
+        setUpiSettings({ id: data.settings.upiId, name: data.settings.upiName });
+      }
+    }).catch(console.error);
   }, []);
 
   const selectedSlot = slots.find((slot) => slot.id === selectedSlotId);
@@ -55,10 +64,7 @@ function Booking() {
 
     try {
       await createBooking({ ...formData, slotId: selectedSlotId });
-      setStatus({
-        type: "success",
-        message: "Your one-on-one session request has been booked.",
-      });
+      setShowSuccess(true);
       const data = await getSlots();
       setSlots(data.slots);
     } catch (error) {
@@ -69,7 +75,81 @@ function Booking() {
   };
 
   return (
-    <section className="min-h-screen bg-[#050505] text-white px-6 py-28">
+    <section className="min-h-screen bg-[#050505] text-white px-6 py-28 relative overflow-hidden">
+      
+      {/* ================= SUCCESS / PAYMENT POPUP ================= */}
+      <AnimatePresence>
+        {showSuccess && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[999] bg-black/80 backdrop-blur-md flex items-center justify-center px-6 overflow-y-auto py-10"
+          >
+            <motion.div
+              initial={{ scale: 0.8, y: 30 }}
+              animate={{ scale: 1, y: 0 }}
+              exit={{ scale: 0.8, y: 30 }}
+              transition={{ duration: 0.35 }}
+              className="w-full max-w-md rounded-[32px] bg-[#0d0d0d] border border-red-500/20 p-8 text-center shadow-[0_0_80px_rgba(220,38,38,0.2)] my-auto"
+            >
+              <div className="w-20 h-20 rounded-full bg-green-500/10 border border-green-500/20 flex items-center justify-center mx-auto mb-6">
+                <FaCheckCircle className="text-4xl text-green-500" />
+              </div>
+
+              <h2 className="text-3xl font-black mb-2">Booking Confirmed</h2>
+              <p className="text-gray-400 text-sm mb-6">
+                Please complete your payment below to secure your slot.
+                {!user && " Don't forget to create an account with the same email to view your diet plan and meet links."}
+              </p>
+
+              {/* QR SECTION */}
+              <div className="bg-white rounded-[24px] p-5 flex justify-center items-center mb-4">
+                <img
+                  src={`https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=upi://pay?pa=${upiSettings.id}&pn=${encodeURIComponent(upiSettings.name)}`}
+                  alt="QR Code"
+                  className="w-[180px] h-[180px]"
+                />
+              </div>
+
+              <p className="text-gray-400 text-sm">Scan using any UPI app</p>
+              <h4 className="mt-1 text-lg font-semibold text-red-500 mb-6">{upiSettings.id}</h4>
+
+              {/* Direct App Links for Mobile */}
+              <div className="flex flex-col gap-3 mb-8">
+                <a
+                  href={`tez://upi/pay?pa=${upiSettings.id}&pn=${encodeURIComponent(upiSettings.name)}`}
+                  className="w-full py-3 rounded-xl border border-white/10 hover:border-red-500 bg-black text-white text-center text-sm font-semibold transition-all"
+                >
+                  Pay with GPay
+                </a>
+                <a
+                  href={`phonepe://pay?pa=${upiSettings.id}&pn=${encodeURIComponent(upiSettings.name)}`}
+                  className="w-full py-3 rounded-xl border border-white/10 hover:border-[#5f259f] bg-black text-white text-center text-sm font-semibold transition-all"
+                >
+                  Pay with PhonePe
+                </a>
+                <a
+                  href={`paytmmp://pay?pa=${upiSettings.id}&pn=${encodeURIComponent(upiSettings.name)}`}
+                  className="w-full py-3 rounded-xl border border-white/10 hover:border-[#00baf2] bg-black text-white text-center text-sm font-semibold transition-all"
+                >
+                  Pay with Paytm
+                </a>
+              </div>
+
+              <button
+                onClick={() => {
+                  setShowSuccess(false);
+                  setFormData({ name: user?.name || "", email: user?.email || "", phone: "", goal: "", notes: "" });
+                }}
+                className="w-full px-8 py-4 rounded-2xl bg-red-600 hover:bg-red-700 transition-all duration-300 font-semibold"
+              >
+                I have paid
+              </button>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
       <div className="max-w-7xl mx-auto grid lg:grid-cols-[0.95fr_1.05fr] gap-10">
         <div>
           <div className="inline-flex items-center gap-3 px-4 py-2 rounded-full bg-white/[0.04] border border-white/10 mb-7">

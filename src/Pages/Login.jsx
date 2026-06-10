@@ -6,6 +6,8 @@ import {
   FaLock,
   FaUser,
   FaExclamationCircle,
+  FaEye,
+  FaEyeSlash,
 } from "react-icons/fa";
 import { loginUser, registerUser } from "../lib/api";
 
@@ -18,6 +20,10 @@ function AuthInput({
   value,
   onChange,
 }) {
+  const [showPassword, setShowPassword] = useState(false);
+  const isPassword = type === "password";
+  const currentType = isPassword ? (showPassword ? "text" : "password") : type;
+
   return (
     <div className="relative">
       <div
@@ -27,13 +33,22 @@ function AuthInput({
       >
         <Icon className="text-red-500" />
         <input
-          type={type}
+          type={currentType}
           name={name}
           value={value}
           onChange={onChange}
           placeholder={placeholder}
           className="w-full bg-transparent outline-none text-white"
         />
+        {isPassword && (
+          <button
+            type="button"
+            onClick={() => setShowPassword(!showPassword)}
+            className="text-gray-500 hover:text-white transition-colors"
+          >
+            {showPassword ? <FaEyeSlash /> : <FaEye />}
+          </button>
+        )}
       </div>
 
       {error && (
@@ -112,11 +127,12 @@ function Login() {
         setStatus({
           type: "success",
           message: data.user.role === "OWNER"
-            ? "Owner login successful. Open the owner dashboard from the menu."
-            : isLogin
-              ? "Login successful. You can now book a coaching slot."
-              : "Account created successfully. You can now book a coaching slot.",
+            ? "Owner login successful. Redirecting..."
+            : "Login successful. Redirecting...",
         });
+        setTimeout(() => {
+          window.location.href = data.user.role === "OWNER" ? "/owner" : "/client";
+        }, 1000);
       } catch (error) {
         setStatus({ type: "error", message: error.message });
       } finally {
