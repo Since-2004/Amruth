@@ -64,15 +64,15 @@ function Hero() {
           </div>
         </motion.div>
 
-        <div className="relative min-h-[520px] hidden lg:block">
+        <div className="relative min-h-[450px] sm:min-h-[500px] lg:min-h-[520px] mt-10 lg:mt-0 flex justify-center lg:block">
           {/* Chevron Background */}
           <motion.div 
             initial={{ opacity: 0, x: -30 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 1, delay: 0.3 }}
-            className="absolute top-[5%] left-[40%] z-0 pointer-events-none h-[90%] flex items-center"
+            className="absolute top-[5%] lg:left-[40%] left-1/2 -translate-x-1/2 lg:-translate-x-0 z-0 pointer-events-none h-[90%] flex items-center"
           >
-            <svg viewBox="0 0 600 800" className="h-full w-auto drop-shadow-2xl" xmlns="http://www.w3.org/2000/svg">
+            <svg viewBox="0 0 600 800" className="h-full w-auto drop-shadow-2xl opacity-70 lg:opacity-100" xmlns="http://www.w3.org/2000/svg">
               <defs>
                 <linearGradient id="chevGradient" x1="0%" y1="50%" x2="100%" y2="50%">
                   <stop offset="0%" stopColor="#7f1d1d" stopOpacity="0" />
@@ -87,31 +87,31 @@ function Hero() {
           <img
             src={bgremoved}
             alt="Amruth fitness trainer"
-            className="absolute bottom-0 left-[45%] -translate-x-1/2 h-[min(78vh,720px)] object-contain z-10 drop-shadow-2xl"
+            className="absolute bottom-0 lg:left-[45%] left-1/2 -translate-x-1/2 h-[min(65vh,450px)] sm:h-[min(70vh,500px)] lg:h-[min(78vh,720px)] object-contain z-10 drop-shadow-2xl"
           />
 
           <motion.div
             initial={{ opacity: 0, x: 28 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.65, delay: 0.2 }}
-            className="absolute right-[-40px] xl:right-[-100px] top-[15%] z-20 w-[280px] rounded-[24px] border border-white/10 bg-black/60 backdrop-blur-xl p-5"
+            className="absolute lg:right-[-40px] xl:right-[-100px] lg:top-[15%] bottom-6 right-4 sm:right-10 lg:bottom-auto z-20 w-[240px] lg:w-[280px] rounded-[20px] lg:rounded-[24px] border border-white/10 bg-black/60 backdrop-blur-xl p-4 lg:p-5 hidden sm:block"
           >
-            <div className="flex items-center gap-3 text-[var(--brand-secondary)]">
+            <div className="flex items-center gap-2 lg:gap-3 text-[var(--brand-secondary)]">
               <FaCalendarAlt />
-              <p className="text-xs uppercase tracking-[3px]">Next Step</p>
+              <p className="text-[10px] lg:text-xs uppercase tracking-[3px]">Next Step</p>
             </div>
-            <h3 className="text-2xl font-black mt-4">Reserve a private coaching slot</h3>
-            <p className="text-sm text-gray-400 mt-3">Owner gets notified immediately when a client books.</p>
+            <h3 className="text-xl lg:text-2xl font-black mt-3 lg:mt-4 leading-tight">Reserve a private coaching slot</h3>
+            <p className="text-xs lg:text-sm text-gray-400 mt-2 lg:mt-3">Owner gets notified immediately when a client books.</p>
           </motion.div>
 
-          <div className="absolute left-0 bottom-[12%] z-20 grid gap-3">
+          <div className="absolute left-4 sm:left-10 lg:left-0 bottom-[15%] lg:bottom-[12%] z-20 grid gap-2 lg:gap-3">
             {[
               [<FaDumbbell key="d" />, "Strength + physique"],
               [<FaCheckCircle key="c" />, "Nutrition guidance"],
             ].map(([icon, label]) => (
-              <div key={label} className="flex items-center gap-3 rounded-2xl border border-white/10 bg-black/55 backdrop-blur-xl px-4 py-3">
+              <div key={label} className="flex items-center gap-2 lg:gap-3 rounded-xl lg:rounded-2xl border border-white/10 bg-black/55 backdrop-blur-xl px-3 py-2 lg:px-4 lg:py-3 scale-90 lg:scale-100 origin-left">
                 <span className="text-[var(--brand-secondary)]">{icon}</span>
-                <p className="text-sm">{label}</p>
+                <p className="text-xs lg:text-sm">{label}</p>
               </div>
             ))}
           </div>
