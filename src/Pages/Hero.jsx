@@ -75,7 +75,7 @@ function Hero() {
             initial={{ opacity: 0, x: 28 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.65, delay: 0.2 }}
-            className="absolute right-0 top-[18%] z-20 w-[280px] rounded-[24px] border border-white/10 bg-black/60 backdrop-blur-xl p-5"
+            className="absolute right-[-20px] xl:right-[-60px] top-[18%] z-20 w-[280px] rounded-[24px] border border-white/10 bg-black/60 backdrop-blur-xl p-5"
           >
             <div className="flex items-center gap-3 text-[var(--brand-secondary)]">
               <FaCalendarAlt />
