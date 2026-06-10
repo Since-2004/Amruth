@@ -1,0 +1,115 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+}
+
+model User {
+  id           String   @id @default(cuid())
+  name         String
+  email        String   @unique
+  passwordHash String
+  role         String   @default("CLIENT")
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  bookings     Booking[]
+}
+
+model Program {
+  id          String       @id
+  title       String
+  duration    String
+  schedule    String
+  price       Int
+  goals       String
+  results     String
+  createdAt   DateTime     @default(now())
+  updatedAt   DateTime     @updatedAt
+  enrollments Enrollment[]
+}
+
+model ContactMessage {
+  id        String   @id @default(cuid())
+  name      String
+  email     String
+  goal      String
+  message   String
+  status    String   @default("new")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Feedback {
+  id        String   @id @default(cuid())
+  name      String
+  email     String
+  message   String
+  approved  Boolean  @default(false)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Enrollment {
+  id            String   @id @default(cuid())
+  programId     String
+  program       Program  @relation(fields: [programId], references: [id])
+  programTitle  String
+  amount        Int
+  currency      String   @default("INR")
+  name          String
+  email         String
+  phone         String
+  goal          String
+  paymentMethod String
+  paymentStatus String   @default("pending_verification")
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
+model SessionSlot {
+  id        String    @id @default(cuid())
+  title     String
+  startsAt  DateTime
+  endsAt    DateTime
+  mode      String    @default("Online")
+  capacity  Int       @default(1)
+  status    String    @default("open")
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  bookings  Booking[]
+}
+
+model Booking {
+  id        String      @id @default(cuid())
+  slotId    String
+  slot      SessionSlot @relation(fields: [slotId], references: [id])
+  userId    String?
+  user      User?       @relation(fields: [userId], references: [id])
+  name      String
+  email     String
+  phone     String
+  goal      String
+  notes     String?
+  status    String      @default("pending")
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @updatedAt
+}
+
+model Notification {
+  id        String   @id @default(cuid())
+  type      String
+  title     String
+  message   String
+  read      Boolean  @default(false)
+  createdAt DateTime @default(now())
+}
+
+model ThemeSetting {
+  id        String   @id @default("main")
+  primary   String   @default("#dc2626") @map("primaryColor")
+  secondary String   @default("#ef4444")
+  surface   String   @default("#0b0b0b")
+  updatedAt DateTime @updatedAt
+}

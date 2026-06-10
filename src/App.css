@@ -1,0 +1,199 @@
+:root {
+
+  /* =========================
+     BACKGROUNDS
+  ========================== */
+
+  --bg-primary: #050505;
+  --bg-secondary: #0d0d0d;
+  --bg-card: rgba(180, 255, 0, 0.04);
+
+  /* =========================
+     TEXT
+  ========================== */
+
+  --text-primary: #ffffff;
+  --text-secondary: #b8b8b8;
+  --text-muted: #6d6d6d;
+
+  /* =========================
+     NEON LIME THEME
+  ========================== */
+
+  --crimson-primary: #b4ff00;
+  --crimson-light: #d8ff5f;
+  --crimson-dark: #7ecb00;
+
+  --border-color: rgba(180, 255, 0, 0.18);
+
+  /* =========================
+     GRADIENTS
+  ========================== */
+
+  --gradient-crimson: linear-gradient(
+    135deg,
+    #5c9400,
+    #b4ff00,
+    #d8ff5f
+  );
+
+  --gradient-dark: linear-gradient(
+    135deg,
+    #050505,
+    #0d0d0d,
+    #151515
+  );
+
+  --gradient-card: linear-gradient(
+    145deg,
+    rgba(180,255,0,0.05),
+    rgba(255,255,255,0.01)
+  );
+
+  /* =========================
+     TYPOGRAPHY
+  ========================== */
+
+  --font-heading: "Bebas Neue", sans-serif;
+  --font-body: "Inter", sans-serif;
+
+  --text-xs: 0.75rem;
+  --text-sm: 0.9rem;
+  --text-base: 1rem;
+  --text-lg: 1.2rem;
+  --text-xl: 1.5rem;
+  --text-2xl: 2rem;
+  --text-3xl: 3rem;
+  --text-4xl: 4.5rem;
+  --text-5xl: 6rem;
+
+  --letter-spacing-heading: 1px;
+
+  /* =========================
+     SPACING
+  ========================== */
+
+  --section-padding: 120px;
+  --container-padding: 5%;
+  --gap-sm: 10px;
+  --gap-md: 20px;
+  --gap-lg: 40px;
+  --gap-xl: 80px;
+
+  /* =========================
+     BORDER RADIUS
+  ========================== */
+
+  --radius-sm: 8px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --radius-xl: 40px;
+  --radius-full: 999px;
+
+  /* =========================
+     SHADOWS
+  ========================== */
+
+  --shadow-sm: 0 4px 10px rgba(0,0,0,0.2);
+
+  --shadow-md: 0 10px 30px rgba(0,0,0,0.35);
+
+  --shadow-crimson: 0 0 30px rgba(180,255,0,0.35);
+
+  --shadow-hover: 0 15px 40px rgba(180,255,0,0.25);
+
+  /* =========================
+     TRANSITIONS
+  ========================== */
+
+  --transition-fast: 0.25s ease;
+  --transition-normal: 0.4s ease;
+  --transition-slow: 0.6s ease;
+
+  /* =========================
+     BUTTONS
+  ========================== */
+
+  --btn-padding: 14px 34px;
+
+  --btn-bg: var(--gradient-crimson);
+
+  --btn-text: #050505;
+
+  --btn-hover-scale: 1.05;
+
+  --btn-hover-shadow: 0 10px 35px rgba(180,255,0,0.45);
+
+  /* =========================
+     GLASS EFFECT
+  ========================== */
+
+  --glass-bg: rgba(255,255,255,0.05);
+
+  --glass-border: 1px solid rgba(180,255,0,0.12);
+
+  --glass-blur: blur(12px);
+
+  /* =========================
+     HOVER EFFECTS
+  ========================== */
+
+  --hover-lift: translateY(-6px);
+
+  --hover-scale: scale(1.03);
+
+  --hover-crimson-border: 1px solid rgba(180,255,0,0.5);
+
+  /* =========================
+     NAVBAR
+  ========================== */
+
+  --navbar-height: 90px;
+
+  --navbar-bg: rgba(5,5,5,0.75);
+
+  --navbar-blur: blur(14px);
+
+  /* =========================
+     CARDS
+  ========================== */
+
+  --card-padding: 28px;
+
+  --card-bg: rgba(255,255,255,0.03);
+
+  --card-border: 1px solid rgba(255,255,255,0.06);
+
+  --card-hover-border: 1px solid rgba(180,255,0,0.35);
+
+  /* =========================
+     IMAGES
+  ========================== */
+
+  --img-overlay: linear-gradient(
+    to top,
+    rgba(0,0,0,0.8),
+    rgba(0,0,0,0.1)
+  );
+
+  /* =========================
+     Z INDEX
+  ========================== */
+
+  --z-navbar: 1000;
+  --z-overlay: 900;
+  --z-modal: 2000;
+
+  /* =========================
+     SCROLL EFFECTS
+  ========================== */
+
+  --parallax-speed: 0.3s;
+
+  /* =========================
+     SELECTION
+  ========================== */
+
+  --selection-bg: #b4ff00;
+  --selection-text: #050505;
+}
