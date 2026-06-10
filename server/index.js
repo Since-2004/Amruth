@@ -16,10 +16,10 @@ const prisma = new PrismaClient({
 });
 
 const PORT = Number(process.env.PORT || process.env.API_PORT || 5000);
-const CLIENT_ORIGIN = process.env.CLIENT_ORIGIN || "http://localhost:5173";
+const CLIENT_ORIGIN = process.env.CLIENT_ORIGIN || "*";
 const TOKEN_SECRET = process.env.TOKEN_SECRET || "change-this-secret-for-production";
 
-app.use(cors({ origin: CLIENT_ORIGIN }));
+app.use(cors());
 app.use(express.json({ limit: "1mb" }));
 
 const registerSchema = z.object({
