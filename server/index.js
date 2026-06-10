@@ -146,6 +146,13 @@ const themeSchema = z.object({
   surface: z.string().regex(/^#[0-9a-fA-F]{6}$/, "Surface color must be a hex color"),
 });
 
+const ownerSettingSchema = z.object({
+  upiId: z.string().trim().min(1, "UPI ID is required"),
+  upiName: z.string().trim().min(1, "Name is required"),
+  meetLink: z.string().trim().optional(),
+  elitePrice: z.string().trim().optional(),
+});
+
 app.get("/api/health", (req, res) => {
   res.json({ ok: true, service: "amrut-api" });
 });
@@ -306,6 +313,12 @@ app.post(
       return res.status(409).json({ error: "This slot is already full" });
     }
 
+    let meetLink = null;
+    if (slot.mode.toLowerCase() === "online") {
+      const settings = await prisma.ownerSetting.findUnique({ where: { id: "main" } });
+      meetLink = settings?.meetLink || null;
+    }
+
     const booking = await prisma.booking.create({
       data: {
         slotId: slot.id,
@@ -315,12 +328,29 @@ app.post(
         phone: input.phone,
         goal: input.goal,
         notes: input.notes || null,
+        meetLink,
       },
     });
 
     await createNotification("booking", "New one-on-one booking", `${booking.name} booked ${slot.title}.`);
 
     res.status(201).json({ booking });
+  }),
+);
+
+app.get(
+  "/api/client/bookings",
+  asyncRoute(async (req, res) => {
+    const user = await getAuthUser(req);
+    if (!user) return res.status(401).json({ error: "Unauthorized" });
+
+    const bookings = await prisma.booking.findMany({
+      where: { userId: user.id },
+      include: { slot: true },
+      orderBy: { createdAt: "desc" },
+    });
+
+    res.json({ bookings });
   }),
 );
 
@@ -347,6 +377,21 @@ app.get(
     });
 
     res.json({ bookings });
+  }),
+);
+
+app.put(
+  "/api/owner/bookings/:id",
+  requireOwner(async (req, res) => {
+    const { id } = req.params;
+    const { dietPlan } = req.body;
+    
+    const booking = await prisma.booking.update({
+      where: { id },
+      data: { dietPlan },
+    });
+
+    res.json({ booking });
   }),
 );
 
@@ -404,6 +449,32 @@ app.put(
 
     await createNotification("theme", "Theme colors updated", "Owner updated the website theme colors.");
     res.json({ theme });
+  }),
+);
+
+app.get(
+  "/api/owner/settings",
+  asyncRoute(async (req, res) => {
+    const settings =
+      (await prisma.ownerSetting.findUnique({ where: { id: "main" } })) ||
+      (await prisma.ownerSetting.create({ data: { id: "main" } }));
+
+    res.json({ settings });
+  }),
+);
+
+app.put(
+  "/api/owner/settings",
+  requireOwner(async (req, res) => {
+    const input = ownerSettingSchema.parse(req.body);
+    const settings = await prisma.ownerSetting.upsert({
+      where: { id: "main" },
+      update: input,
+      create: { id: "main", ...input },
+    });
+
+    await createNotification("settings", "Owner settings updated", "Owner updated UPI and Meet settings.");
+    res.json({ settings });
   }),
 );
 

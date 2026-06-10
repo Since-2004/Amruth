@@ -106,3 +106,25 @@ export function updateTheme(payload) {
     body: JSON.stringify(payload),
   });
 }
+
+export function getOwnerSettings() {
+  return request("/owner/settings");
+}
+
+export function updateOwnerSettings(payload) {
+  return request("/owner/settings", {
+    method: "PUT",
+    body: JSON.stringify(payload),
+  });
+}
+
+export function updateBookingDiet(id, dietPlan) {
+  return request(`/owner/bookings/${id}`, {
+    method: "PUT",
+    body: JSON.stringify({ dietPlan }),
+  });
+}
+
+export function getClientBookings() {
+  return request("/client/bookings");
+}

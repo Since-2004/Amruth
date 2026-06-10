@@ -92,6 +92,8 @@ model Booking {
   phone     String
   goal      String
   notes     String?
+  dietPlan  String?
+  meetLink  String?
   status    String      @default("pending")
   createdAt DateTime    @default(now())
   updatedAt DateTime    @updatedAt
@@ -112,4 +114,13 @@ model ThemeSetting {
   secondary String   @default("#ef4444")
   surface   String   @default("#0b0b0b")
   updatedAt DateTime @updatedAt
+}
+
+model OwnerSetting {
+  id         String   @id @default("main")
+  upiId      String   @default("amruthfitness@upi")
+  upiName    String   @default("Amruth Fitness")
+  meetLink   String   @default("")
+  elitePrice String   @default("7,999")
+  updatedAt  DateTime @updatedAt
 }

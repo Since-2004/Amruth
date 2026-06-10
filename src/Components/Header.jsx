@@ -36,7 +36,7 @@ function Header() {
         </Link>
 
         {/* NAV LINKS */}
-        <nav className="hidden lg:flex items-center gap-10">
+        <nav className="hidden lg:flex items-center gap-4 xl:gap-8">
           
           {[
             "Home",
@@ -45,6 +45,7 @@ function Header() {
             "Programs",
             "Booking",
             "Contact",
+            "Client",
             "Owner",
           ].map((item, index) => (
             <Link
@@ -54,7 +55,7 @@ function Header() {
                   ? "/"
                   : `/${item.toLowerCase().replace(/\s+/g, "")}`
               }
-              className="text-white hover:text-[#ef4444] transition-all duration-300 text-sm tracking-[2px] uppercase relative group"
+              className="text-white hover:text-[#ef4444] transition-all duration-300 text-[11px] xl:text-sm tracking-[1px] uppercase relative group"
             >
               {item}
 

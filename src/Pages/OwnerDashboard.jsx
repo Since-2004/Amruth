@@ -8,6 +8,9 @@ import {
   loginUser,
   markNotificationsRead,
   updateTheme,
+  getOwnerSettings,
+  updateOwnerSettings,
+  updateBookingDiet,
 } from "../lib/api";
 
 function toIsoFromLocal(value) {
@@ -27,26 +30,42 @@ function OwnerDashboard() {
   const [bookings, setBookings] = useState([]);
   const [notifications, setNotifications] = useState([]);
   const [theme, setTheme] = useState({ primary: "#dc2626", secondary: "#ef4444", surface: "#0b0b0b" });
+  const [settings, setSettings] = useState({ upiId: "amruthfitness@upi", upiName: "Amruth Fitness", meetLink: "", elitePrice: "7,999" });
   const [slot, setSlot] = useState({ title: "", startsAt: "", endsAt: "", mode: "Online", capacity: 1 });
   const [status, setStatus] = useState({ type: "", message: "" });
+  const [dietPlans, setDietPlans] = useState({});
 
   const isOwner = auth?.role === "OWNER";
 
   const loadDashboard = async () => {
-    const [summaryData, bookingData, notificationData, themeData] = await Promise.all([
+    const [summaryData, bookingData, notificationData, themeData, settingsData] = await Promise.all([
       getOwnerSummary(),
       getOwnerBookings(),
       getOwnerNotifications(),
       getTheme(),
+      getOwnerSettings(),
     ]);
 
     setSummary(summaryData.summary);
     setBookings(bookingData.bookings);
+    
+    const initialDietPlans = {};
+    bookingData.bookings.forEach((b) => {
+      initialDietPlans[b.id] = b.dietPlan || "";
+    });
+    setDietPlans(initialDietPlans);
+
     setNotifications(notificationData.notifications);
     setTheme({
       primary: themeData.theme.primary,
       secondary: themeData.theme.secondary,
       surface: themeData.theme.surface,
+    });
+    setSettings({
+      upiId: settingsData.settings.upiId || "",
+      upiName: settingsData.settings.upiName || "",
+      meetLink: settingsData.settings.meetLink || "",
+      elitePrice: settingsData.settings.elitePrice || "7,999",
     });
   };
 
@@ -95,6 +114,27 @@ function OwnerDashboard() {
       });
       setSlot({ title: "", startsAt: "", endsAt: "", mode: "Online", capacity: 1 });
       setStatus({ type: "success", message: "Slot created." });
+      await loadDashboard();
+    } catch (error) {
+      setStatus({ type: "error", message: error.message });
+    }
+  };
+
+  const handleSettingsSave = async (event) => {
+    event.preventDefault();
+    try {
+      await updateOwnerSettings(settings);
+      setStatus({ type: "success", message: "Owner settings updated." });
+      await loadDashboard();
+    } catch (error) {
+      setStatus({ type: "error", message: error.message });
+    }
+  };
+
+  const handleDietSave = async (id) => {
+    try {
+      await updateBookingDiet(id, dietPlans[id]);
+      setStatus({ type: "success", message: "Diet plan saved." });
       await loadDashboard();
     } catch (error) {
       setStatus({ type: "error", message: error.message });
@@ -175,6 +215,17 @@ function OwnerDashboard() {
               </div>
             </form>
 
+            <form onSubmit={handleSettingsSave} className="rounded-[24px] bg-[#0b0b0b] border border-white/10 p-6">
+              <h2 className="text-2xl font-black mb-5">Owner Settings</h2>
+              <div className="grid gap-4">
+                <input value={settings.upiId} onChange={(e) => setSettings({ ...settings, upiId: e.target.value })} placeholder="UPI ID" className="bg-black border border-white/10 rounded-2xl px-5 py-4 outline-none focus:border-[var(--brand-secondary)]" />
+                <input value={settings.upiName} onChange={(e) => setSettings({ ...settings, upiName: e.target.value })} placeholder="UPI Name" className="bg-black border border-white/10 rounded-2xl px-5 py-4 outline-none focus:border-[var(--brand-secondary)]" />
+                <input value={settings.meetLink} onChange={(e) => setSettings({ ...settings, meetLink: e.target.value })} placeholder="Google Meet Link" className="bg-black border border-white/10 rounded-2xl px-5 py-4 outline-none focus:border-[var(--brand-secondary)]" />
+                <input value={settings.elitePrice} onChange={(e) => setSettings({ ...settings, elitePrice: e.target.value })} placeholder="Elite Plan Price (e.g. 7,999)" className="bg-black border border-white/10 rounded-2xl px-5 py-4 outline-none focus:border-[var(--brand-secondary)]" />
+                <button className="rounded-2xl bg-[var(--brand-primary)] py-4 font-semibold">Save Settings</button>
+              </div>
+            </form>
+
             <form onSubmit={handleSlotCreate} className="rounded-[24px] bg-[#0b0b0b] border border-white/10 p-6">
               <h2 className="text-2xl font-black mb-5">Create Slot</h2>
               <div className="grid gap-4">
@@ -223,6 +274,15 @@ function OwnerDashboard() {
                     </div>
                     <p className="text-sm text-gray-300 mt-3">{booking.slot?.title} - {booking.goal}</p>
                     {booking.notes && <p className="text-sm text-gray-500 mt-2">{booking.notes}</p>}
+                    <div className="mt-4 flex gap-2">
+                      <input 
+                        value={dietPlans[booking.id] || ""} 
+                        onChange={(e) => setDietPlans({ ...dietPlans, [booking.id]: e.target.value })} 
+                        placeholder="Prescribe Diet Plan..." 
+                        className="flex-1 bg-black border border-white/10 rounded-xl px-4 py-2 outline-none focus:border-[var(--brand-secondary)] text-sm" 
+                      />
+                      <button onClick={() => handleDietSave(booking.id)} className="rounded-xl bg-[var(--brand-primary)] px-4 py-2 text-sm font-semibold">Save Diet</button>
+                    </div>
                   </div>
                 ))}
               </div>

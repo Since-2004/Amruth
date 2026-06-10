@@ -16,6 +16,7 @@ import Transformations from "./Pages/Transformations";
 import Hero from "./Pages/Hero";
 import Booking from "./Pages/Booking";
 import OwnerDashboard from "./Pages/OwnerDashboard";
+import ClientDashboard from "./Pages/ClientDashboard";
 import { getTheme } from "./lib/api";
 
 function App() {
@@ -46,6 +47,7 @@ function App() {
         <Route path="/checkout" element={<Checkout />} />
         <Route path="/booking" element={<Booking />} />
         <Route path="/owner" element={<OwnerDashboard />} />
+        <Route path="/client" element={<ClientDashboard />} />
         <Route path="/transformations" element={<Transformations />} />
       </Routes>
 

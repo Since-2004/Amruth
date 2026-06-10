@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useRef, useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 
 import {
@@ -12,7 +12,7 @@ import {
   FaUniversity,
   FaPaypal,
 } from "react-icons/fa";
-import { createEnrollment } from "../lib/api";
+import { createEnrollment, getOwnerSettings } from "../lib/api";
 
 function Checkout() {
   const detailsRef = useRef(null);
@@ -22,6 +22,19 @@ function Checkout() {
   const [showSuccess, setShowSuccess] = useState(false);
   const [status, setStatus] = useState({ type: "", message: "" });
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [upiSettings, setUpiSettings] = useState({ id: "amruthfitness@upi", name: "Amruth Fitness" });
+  const [elitePrice, setElitePrice] = useState("7,999");
+
+  useEffect(() => {
+    getOwnerSettings().then((data) => {
+      if (data.settings) {
+        setUpiSettings({ id: data.settings.upiId, name: data.settings.upiName });
+        if (data.settings.elitePrice) {
+          setElitePrice(data.settings.elitePrice);
+        }
+      }
+    }).catch(console.error);
+  }, []);
 
   const [formData, setFormData] = useState({
     name: "",
@@ -33,7 +46,7 @@ function Checkout() {
   const selectedPlan = {
     title: "Elite Transformation",
     duration: "3 Months",
-    price: "₹7,999",
+    price: `₹${elitePrice}`,
     goal: "Fat Loss + Muscle Gain",
     schedule: "5 Days / Week",
   };
@@ -488,7 +501,7 @@ function Checkout() {
                   <div className="bg-white rounded-[28px] p-6 flex justify-center items-center">
 
                     <img
-                      src="https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=amruthfitness@upi"
+                      src={`https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=upi://pay?pa=${upiSettings.id}&pn=${encodeURIComponent(upiSettings.name)}`}
                       alt="QR Code"
                       className="w-[230px] h-[230px]"
                     />
@@ -502,9 +515,37 @@ function Checkout() {
                     </p>
 
                     <h4 className="mt-2 text-lg font-semibold text-red-500">
-                      amruthfitness@upi
+                      {upiSettings.id}
                     </h4>
 
+                  </div>
+
+                  {/* Direct App Links for Mobile */}
+                  <div className="mt-6 flex flex-col gap-3">
+                    <a
+                      href={`tez://upi/pay?pa=${upiSettings.id}&pn=${encodeURIComponent(upiSettings.name)}`}
+                      className="w-full py-3 rounded-xl border border-white/10 hover:border-red-500 bg-black text-white text-center font-semibold transition-all"
+                    >
+                      Pay with GPay
+                    </a>
+                    <a
+                      href={`phonepe://pay?pa=${upiSettings.id}&pn=${encodeURIComponent(upiSettings.name)}`}
+                      className="w-full py-3 rounded-xl border border-white/10 hover:border-[#5f259f] bg-black text-white text-center font-semibold transition-all"
+                    >
+                      Pay with PhonePe
+                    </a>
+                    <a
+                      href={`paytmmp://pay?pa=${upiSettings.id}&pn=${encodeURIComponent(upiSettings.name)}`}
+                      className="w-full py-3 rounded-xl border border-white/10 hover:border-[#00baf2] bg-black text-white text-center font-semibold transition-all"
+                    >
+                      Pay with Paytm
+                    </a>
+                    <a
+                      href={`upi://pay?pa=${upiSettings.id}&pn=${encodeURIComponent(upiSettings.name)}`}
+                      className="w-full py-3 rounded-xl bg-red-600 hover:bg-red-700 text-white text-center font-semibold transition-all"
+                    >
+                      Open any UPI App
+                    </a>
                   </div>
 
                 </div>
