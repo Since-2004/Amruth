@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useMemo } from "react";
 import {
   createSlot,
   getOwnerBookings,
@@ -182,9 +182,44 @@ function OwnerDashboard() {
     }
   };
 
+  const allPayments = useMemo(() => {
+    const mappedEnrollments = enrollments.map(e => ({
+      id: e.id,
+      createdAt: e.createdAt,
+      name: e.name,
+      email: e.email,
+      programTitle: e.programTitle,
+      currency: e.currency,
+      amount: e.amount,
+      paymentMethod: e.paymentMethod,
+      utrNumber: e.utrNumber,
+      paymentStatus: e.paymentStatus
+    }));
+    
+    const mappedBookings = bookings
+      .filter(b => b.utrNumber)
+      .map(b => {
+        const p = programs.find(prog => prog.title === b.goal);
+        return {
+          id: b.id,
+          createdAt: b.createdAt,
+          name: b.name,
+          email: b.email,
+          programTitle: b.goal || "One-on-One Session",
+          currency: "INR",
+          amount: p ? parseFloat(p.price?.toString().replace(/,/g, '')) : 0,
+          paymentMethod: "UPI",
+          utrNumber: b.utrNumber,
+          paymentStatus: b.status === "COMPLETED" ? "completed" : "pending_verification"
+        };
+      });
+
+    return [...mappedEnrollments, ...mappedBookings].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+  }, [enrollments, bookings, programs]);
+
   const exportToCSV = () => {
     const headers = ["ID", "Date", "Client Name", "Email", "Program", "Amount", "Currency", "Payment Method", "UTR Number", "Payment Status"];
-    const rows = enrollments.map(e => [
+    const rows = allPayments.map(e => [
       e.id,
       new Date(e.createdAt).toLocaleDateString(),
       `"${e.name}"`,
@@ -567,51 +602,12 @@ function OwnerDashboard() {
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-white/5">
-                    {(() => {
-                      // Map enrollments to a common payment format
-                      const mappedEnrollments = enrollments.map(e => ({
-                        id: e.id,
-                        createdAt: e.createdAt,
-                        name: e.name,
-                        email: e.email,
-                        programTitle: e.programTitle,
-                        currency: e.currency,
-                        amount: e.amount,
-                        paymentMethod: e.paymentMethod,
-                        utrNumber: e.utrNumber,
-                        paymentStatus: e.paymentStatus
-                      }));
-                      
-                      // Map paid bookings to the same format
-                      const mappedBookings = bookings
-                        .filter(b => b.utrNumber)
-                        .map(b => {
-                          const p = programs.find(prog => prog.title === b.goal);
-                          return {
-                            id: b.id,
-                            createdAt: b.createdAt,
-                            name: b.name,
-                            email: b.email,
-                            programTitle: b.goal || "One-on-One Session",
-                            currency: "INR",
-                            amount: p ? parseFloat(p.price?.toString().replace(/,/g, '')) : 0,
-                            paymentMethod: "UPI",
-                            utrNumber: b.utrNumber,
-                            paymentStatus: b.status === "confirmed" ? "completed" : "pending_verification"
-                          };
-                        });
-
-                      const allPayments = [...mappedEnrollments, ...mappedBookings].sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
-
-                      if (allPayments.length === 0) {
-                        return (
-                          <tr>
-                            <td colSpan="7" className="px-4 py-4 text-center text-gray-500">No payments found.</td>
-                          </tr>
-                        );
-                      }
-
-                      return allPayments.map((e) => (
+                    {allPayments.length === 0 ? (
+                      <tr>
+                        <td colSpan="7" className="px-4 py-4 text-center text-gray-500">No payments found.</td>
+                      </tr>
+                    ) : (
+                      allPayments.map((e) => (
                       <tr key={e.id} className="hover:bg-white/[0.02] transition">
                         <td className="px-4 py-4 text-gray-300">{new Date(e.createdAt).toLocaleDateString()}</td>
                         <td className="px-4 py-4">
@@ -632,8 +628,8 @@ function OwnerDashboard() {
                           </span>
                         </td>
                       </tr>
-                    ));
-                    })()}
+                      ))
+                    )}
                   </tbody>
                 </table>
               </div>
