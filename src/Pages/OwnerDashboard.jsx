@@ -369,8 +369,8 @@ function OwnerDashboard() {
           ))}
         </div>
 
-        <div className="grid lg:grid-cols-[0.9fr_1.1fr] gap-8">
-          <div className="space-y-8">
+        <div className="grid grid-cols-1 lg:grid-cols-[0.9fr_1.1fr] gap-8">
+          <div className="space-y-8 min-w-0">
             <form onSubmit={handleThemeSave} className="rounded-[24px] bg-[#0b0b0b] border border-white/10 p-6">
               <h2 className="text-2xl font-black mb-5">Theme Colors</h2>
               <div className="grid gap-4">
@@ -444,8 +444,8 @@ function OwnerDashboard() {
             </form>
           </div>
 
-          <div className="space-y-8">
-            <div className="rounded-[24px] bg-[#0b0b0b] border border-white/10 p-6">
+          <div className="space-y-8 min-w-0">
+            <div className="rounded-[24px] bg-[#0b0b0b] border border-white/10 p-6 min-w-0">
               <h2 className="text-2xl font-black mb-5">Recent Notifications</h2>
               <div className="space-y-3 max-h-[300px] overflow-auto pr-1">
                 {notifications.map((item) => (
@@ -559,7 +559,7 @@ function OwnerDashboard() {
               </div>
             </div>
 
-            <div className="rounded-[24px] bg-[#0b0b0b] border border-white/10 p-6 overflow-hidden flex flex-col">
+            <div className="rounded-[24px] bg-[#0b0b0b] border border-white/10 p-6 overflow-hidden flex flex-col min-w-0">
               <div className="flex justify-between items-center mb-5">
                 <h2 className="text-2xl font-black">Payments Tracker</h2>
                 <button onClick={exportToCSV} className="text-sm font-semibold rounded-xl bg-green-600 hover:bg-green-500 px-4 py-2 transition text-white">
