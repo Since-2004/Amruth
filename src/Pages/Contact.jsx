@@ -99,7 +99,7 @@ function Contact() {
 
             {/* PHONE */}
             <motion.a
-              href="tel:+919876543210"
+              href="tel:+917996131812"
               whileHover={{ x: 6 }}
               className="flex items-center gap-4 py-5 border-b border-white/5 hover:border-brand-secondary/30 transition-all duration-300"
             >
@@ -117,7 +117,7 @@ function Contact() {
                 </p>
 
                 <h4 className="text-lg font-medium mt-1">
-                  +91 98765 43210
+                  +91 79961 31812
                 </h4>
 
               </div>
@@ -153,7 +153,7 @@ function Contact() {
 
             {/* LOCATION */}
             <motion.a
-              href="https://maps.google.com/?q=Bangalore,India"
+              href="https://maps.app.goo.gl/h3XK4y6edgi5LcPh7?g_st=aw"
               target="_blank"
               rel="noopener noreferrer"
               whileHover={{ x: 6 }}
@@ -186,7 +186,7 @@ function Contact() {
           <div className="flex gap-4 mt-10">
 
             <motion.a
-              href="https://instagram.com"
+              href="https://www.instagram.com/amrut_ascend.fit_official?igsh=Yjc1bmZpNTRucGho"
               target="_blank"
               rel="noopener noreferrer"
               whileHover={{ y: -5 }}
@@ -198,7 +198,7 @@ function Contact() {
             </motion.a>
 
             <motion.a
-              href="https://wa.me/919876543210"
+              href="https://wa.me/917996131812"
               target="_blank"
               rel="noopener noreferrer"
               whileHover={{ y: -5 }}

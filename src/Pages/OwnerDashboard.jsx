@@ -445,20 +445,7 @@ function OwnerDashboard() {
           </div>
 
           <div className="space-y-8 min-w-0">
-            <div className="rounded-[24px] bg-[#0b0b0b] border border-white/10 p-6 min-w-0">
-              <h2 className="text-2xl font-black mb-5">Recent Notifications</h2>
-              <div className="space-y-3 max-h-[300px] overflow-auto pr-1">
-                {notifications.map((item) => (
-                  <div key={item.id} className="rounded-2xl bg-black border border-white/10 p-4">
-                    <div className="flex items-center justify-between gap-4">
-                      <h3 className="font-semibold">{item.title}</h3>
-                      {!item.read && <span className="w-2 h-2 rounded-full bg-[var(--brand-secondary)]" />}
-                    </div>
-                    <p className="text-sm text-gray-400 mt-2">{item.message}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
+
 
             <div className="rounded-[24px] bg-[#0b0b0b] border border-white/10 p-6">
               <h2 className="text-2xl font-black mb-5">Bookings</h2>

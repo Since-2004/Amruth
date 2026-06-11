@@ -222,8 +222,8 @@ function Footer() {
             {/* SOCIALS */}
             <div className="flex gap-4 mt-7 text-xl">
               {[
-                { Icon: FaInstagram, href: "https://instagram.com" },
-                { Icon: FaWhatsapp, href: "https://wa.me/919876543210" },
+                { Icon: FaInstagram, href: "https://www.instagram.com/amrut_ascend.fit_official?igsh=Yjc1bmZpNTRucGho" },
+                { Icon: FaWhatsapp, href: "https://wa.me/917996131812" },
                 { Icon: FaFacebook, href: "https://facebook.com" }
               ].map(({ Icon, href }, i) => (
                 <motion.a
@@ -329,8 +329,8 @@ function Footer() {
                 {
                   icon: <FaPhoneAlt />,
                   title: "Phone",
-                  value: "+91 98765 43210",
-                  href: "tel:+919876543210",
+                  value: "+91 79961 31812",
+                  href: "tel:+917996131812",
                 },
                 {
                   icon: <FaEnvelope />,
@@ -342,7 +342,7 @@ function Footer() {
                   icon: <FaMapMarkerAlt />,
                   title: "Location",
                   value: "Bangalore, India",
-                  href: "https://maps.google.com/?q=Bangalore,India",
+                  href: "https://maps.app.goo.gl/h3XK4y6edgi5LcPh7?g_st=aw",
                 },
               ].map((item, i) => (
                 <a href={item.href} target="_blank" rel="noopener noreferrer" key={i} className="flex gap-4 items-start hover:opacity-80 transition-opacity">

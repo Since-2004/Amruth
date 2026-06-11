@@ -1,20 +1,34 @@
 import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { FaBars, FaTimes } from "react-icons/fa";
+import { FaBars, FaTimes, FaBell } from "react-icons/fa";
 import llogo from "../assets/Images/llogo.png"
+import { getOwnerNotifications, markNotificationsRead } from "../lib/api";
 
 function Header() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [user, setUser] = useState(null);
   const location = useLocation();
 
+  const [showNotifications, setShowNotifications] = useState(false);
+  const [notifications, setNotifications] = useState([]);
+
   // Close menu when route changes and check user state
   useEffect(() => {
     setIsMobileMenuOpen(false);
+    setShowNotifications(false);
     try {
       const u = localStorage.getItem("amrut_user");
-      if (u) setUser(JSON.parse(u));
-      else setUser(null);
+      if (u) {
+        const parsed = JSON.parse(u);
+        setUser(parsed);
+        if (parsed.role === "OWNER") {
+          getOwnerNotifications()
+            .then(data => setNotifications(data.notifications || []))
+            .catch(console.error);
+        }
+      } else {
+        setUser(null);
+      }
     } catch {
       setUser(null);
     }
@@ -38,8 +52,6 @@ function Header() {
 
   if (!user) {
     navItems.push({ label: "Login", path: "/login" });
-  } else {
-    navItems.push({ label: "Dashboard", path: user.role === "OWNER" ? "/owner" : "/client" });
   }
 
   return (
@@ -94,6 +106,53 @@ function Header() {
 
           {/* DESKTOP BUTTON & MOBILE TOGGLE */}
           <div className="flex items-center gap-4 relative z-50">
+            {user?.role === "OWNER" && (
+              <div className="relative">
+                <button
+                  onClick={() => setShowNotifications(!showNotifications)}
+                  className="text-white hover:text-[var(--brand-secondary)] transition-colors text-xl relative mt-2"
+                >
+                  <FaBell />
+                  {notifications.some(n => !n.read) && (
+                    <span className="absolute -top-1 -right-1 w-2.5 h-2.5 bg-[var(--brand-secondary)] rounded-full border border-black"></span>
+                  )}
+                </button>
+
+                {showNotifications && (
+                  <div className="absolute right-0 mt-4 w-80 bg-[#0b0b0b] border border-white/10 rounded-2xl shadow-xl overflow-hidden flex flex-col">
+                    <div className="p-4 border-b border-white/10 flex justify-between items-center bg-black">
+                      <h3 className="text-white font-bold text-sm tracking-[1px] uppercase">Notifications</h3>
+                      <button 
+                        onClick={async () => {
+                          await markNotificationsRead();
+                          const data = await getOwnerNotifications();
+                          setNotifications(data.notifications || []);
+                        }}
+                        className="text-xs text-[var(--brand-secondary)] hover:text-white transition-colors"
+                      >
+                        Mark Read
+                      </button>
+                    </div>
+                    <div className="max-h-80 overflow-y-auto">
+                      {notifications.length === 0 ? (
+                        <p className="p-4 text-xs text-gray-500 text-center">No notifications.</p>
+                      ) : (
+                        notifications.map((n) => (
+                          <div key={n.id} className="p-4 border-b border-white/5 hover:bg-white/[0.02] transition-colors">
+                            <div className="flex justify-between items-center mb-1">
+                              <p className="text-sm font-semibold text-white">{n.title}</p>
+                              {!n.read && <span className="w-1.5 h-1.5 bg-[var(--brand-secondary)] rounded-full"></span>}
+                            </div>
+                            <p className="text-xs text-gray-400">{n.message}</p>
+                          </div>
+                        ))
+                      )}
+                    </div>
+                  </div>
+                )}
+              </div>
+            )}
+
             {user && (
               <button
                 onClick={handleLogout}
