@@ -50,7 +50,7 @@ function Header() {
                 Amrut Ascend
               </h1>
 
-              <p className="text-[#ef4444] text-[9px] md:text-[10px] tracking-[4px] md:tracking-[5px] uppercase mt-1 md:mt-1.5 font-medium whitespace-nowrap">
+              <p className="text-[var(--brand-secondary)] text-[9px] md:text-[10px] tracking-[4px] md:tracking-[5px] uppercase mt-1 md:mt-1.5 font-medium whitespace-nowrap">
                  Trainer
               </p>
             </div>
@@ -67,11 +67,11 @@ function Header() {
                     ? "/"
                     : `/${item.toLowerCase().replace(/\s+/g, "")}`
                 }
-                className="text-white hover:text-[#ef4444] transition-all duration-300 text-xs 2xl:text-sm tracking-[1.5px] uppercase relative group"
+                className="text-white hover:text-[var(--brand-secondary)] transition-all duration-300 text-xs 2xl:text-sm tracking-[1.5px] uppercase relative group"
               >
                 {item}
 
-                <span className="absolute left-0 -bottom-2 w-0 h-[2px] bg-[#dc2626] transition-all duration-300 group-hover:w-full"></span>
+                <span className="absolute left-0 -bottom-2 w-0 h-[2px] bg-[var(--brand-primary)] transition-all duration-300 group-hover:w-full"></span>
               </Link>
             ))}
           </nav>
@@ -80,14 +80,14 @@ function Header() {
           <div className="flex items-center gap-4 relative z-50">
             <Link
               to="/booking"
-              className="hidden md:flex items-center justify-center px-6 py-2.5 md:px-7 md:py-3 rounded-full bg-gradient-to-r from-[#7f1d1d] via-[#dc2626] to-[#ef4444] text-white text-sm md:text-base font-semibold uppercase tracking-[2px] transition-all duration-300 hover:scale-105 hover:shadow-[0_10px_35px_rgba(220,38,38,0.45)]"
+              className="hidden md:flex items-center justify-center px-6 py-2.5 md:px-7 md:py-3 rounded-full bg-gradient-to-r from-[#7f1d1d] via-[var(--brand-primary)] to-[var(--brand-secondary)] text-white text-sm md:text-base font-semibold uppercase tracking-[2px] transition-all duration-300 hover:scale-105 hover:shadow-[0_10px_35px_rgba(220,38,38,0.45)]"
             >
               Book Slot
             </Link>
             
             {/* MOBILE MENU TOGGLE */}
             <button 
-              className="xl:hidden text-white text-2xl p-2 hover:text-[#ef4444] transition-colors"
+              className="xl:hidden text-white text-2xl p-2 hover:text-[var(--brand-secondary)] transition-colors"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
             >
               {isMobileMenuOpen ? <FaTimes /> : <FaBars />}
@@ -109,14 +109,14 @@ function Header() {
                   ? "/"
                   : `/${item.toLowerCase().replace(/\s+/g, "")}`
               }
-              className="text-white hover:text-[#ef4444] transition-colors text-xl tracking-[3px] uppercase font-medium"
+              className="text-white hover:text-[var(--brand-secondary)] transition-colors text-xl tracking-[3px] uppercase font-medium"
             >
               {item}
             </Link>
           ))}
           <Link
             to="/booking"
-            className="mt-4 inline-flex items-center justify-center px-10 py-4 rounded-full bg-gradient-to-r from-[#7f1d1d] via-[#dc2626] to-[#ef4444] text-white font-bold uppercase tracking-[2px] shadow-[0_10px_35px_rgba(220,38,38,0.25)]"
+            className="mt-4 inline-flex items-center justify-center px-10 py-4 rounded-full bg-gradient-to-r from-[#7f1d1d] via-[var(--brand-primary)] to-[var(--brand-secondary)] text-white font-bold uppercase tracking-[2px] shadow-[0_10px_35px_rgba(220,38,38,0.25)]"
           >
             Book Slot
           </Link>

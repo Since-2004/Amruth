@@ -8,12 +8,12 @@ function About() {
       {/* ================= SECTION 1: INTRO ================= */}
       <section className="relative py-24">
 
-        <div className="absolute top-[-120px] left-[-120px] w-[400px] h-[400px] bg-red-600/20 blur-[150px] rounded-full"></div>
+        <div className="absolute top-[-120px] left-[-120px] w-[400px] h-[400px] bg-brand-primary/20 blur-[150px] rounded-full"></div>
 
         <div className="relative z-10 max-w-6xl mx-auto px-6 text-center">
 
           <h2 className="text-4xl md:text-5xl font-black">
-            About <span className="text-red-500">Me</span>
+            About <span className="text-brand-secondary">Me</span>
           </h2>
 
           <p className="mt-6 text-gray-400 max-w-2xl mx-auto leading-relaxed">
@@ -80,13 +80,13 @@ function About() {
       {/* ================= SECTION 3: CTA ================= */}
       <section className="relative py-24 bg-black">
 
-        <div className="absolute bottom-[-120px] left-[-120px] w-[450px] h-[450px] bg-red-600/20 blur-[160px] rounded-full"></div>
+        <div className="absolute bottom-[-120px] left-[-120px] w-[450px] h-[450px] bg-brand-primary/20 blur-[160px] rounded-full"></div>
 
         <div className="relative z-10 max-w-5xl mx-auto px-6 text-center">
 
           <h2 className="text-4xl md:text-5xl font-black">
             Ready to Start Your
-            <span className="block text-red-500">Transformation?</span>
+            <span className="block text-brand-secondary">Transformation?</span>
           </h2>
 
           <p className="text-gray-400 mt-6 max-w-xl mx-auto">
@@ -100,7 +100,7 @@ function About() {
             </Link>
 
             <Link to={"/contact"}>
-            <button className="px-8 py-4 border border-white/15 hover:border-red-500 transition rounded-full">
+            <button className="px-8 py-4 border border-white/15 hover:border-brand-secondary transition rounded-full">
               Contact Me
             </button>
             </Link>

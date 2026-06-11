@@ -40,7 +40,7 @@ function OwnerDashboard() {
   const [summary, setSummary] = useState(null);
   const [bookings, setBookings] = useState([]);
   const [notifications, setNotifications] = useState([]);
-  const [theme, setTheme] = useState({ primary: "#dc2626", secondary: "#ef4444", surface: "#0b0b0b" });
+  const [theme, setTheme] = useState({ primary: "var(--brand-primary)", secondary: "var(--brand-secondary)", surface: "#0b0b0b" });
   const [settings, setSettings] = useState({ upiId: "amruthfitness@upi", upiName: "Amruth Fitness", meetLink: "", elitePrice: "7,999" });
   const [slot, setSlot] = useState({ title: "", startsAt: "", endsAt: "", mode: "Online", capacity: 1 });
   const [status, setStatus] = useState({ type: "", message: "" });
@@ -666,7 +666,7 @@ function OwnerDashboard() {
                       <button onClick={() => handleTransEdit(item)} className="text-blue-500 hover:text-blue-400 text-sm font-semibold border border-blue-500/20 hover:border-blue-500/50 rounded-xl px-3 py-1 bg-blue-500/10 transition">
                         Edit
                       </button>
-                      <button onClick={() => handleTransDelete(item.id)} className="text-red-500 hover:text-red-400 text-sm font-semibold border border-red-500/20 hover:border-red-500/50 rounded-xl px-3 py-1 bg-red-500/10 transition">
+                      <button onClick={() => handleTransDelete(item.id)} className="text-brand-secondary hover:text-red-400 text-sm font-semibold border border-brand-secondary/20 hover:border-brand-secondary/50 rounded-xl px-3 py-1 bg-brand-secondary/10 transition">
                         Delete
                       </button>
                     </div>
@@ -690,7 +690,7 @@ function OwnerDashboard() {
                         <button onClick={() => handleProgramEdit(item)} className="text-blue-500 hover:text-blue-400 text-sm font-semibold border border-blue-500/20 hover:border-blue-500/50 rounded-xl px-3 py-1 bg-blue-500/10 transition">
                           Edit
                         </button>
-                        <button onClick={() => handleProgramDelete(item.id)} className="text-red-500 hover:text-red-400 text-sm font-semibold border border-red-500/20 hover:border-red-500/50 rounded-xl px-3 py-1 bg-red-500/10 transition">
+                        <button onClick={() => handleProgramDelete(item.id)} className="text-brand-secondary hover:text-red-400 text-sm font-semibold border border-brand-secondary/20 hover:border-brand-secondary/50 rounded-xl px-3 py-1 bg-brand-secondary/10 transition">
                           Delete
                         </button>
                       </div>

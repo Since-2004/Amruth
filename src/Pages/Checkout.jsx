@@ -125,12 +125,12 @@ function Checkout() {
               animate={{ scale: 1, y: 0 }}
               exit={{ scale: 0.8, y: 30 }}
               transition={{ duration: 0.35 }}
-              className="w-full max-w-md rounded-[32px] bg-[#0d0d0d] border border-red-500/20 p-10 text-center shadow-[0_0_80px_rgba(220,38,38,0.2)]"
+              className="w-full max-w-md rounded-[32px] bg-[#0d0d0d] border border-brand-secondary/20 p-10 text-center shadow-[0_0_80px_rgba(220,38,38,0.2)]"
             >
 
-              <div className="w-24 h-24 rounded-full bg-red-600/10 border border-red-500/20 flex items-center justify-center mx-auto mb-6">
+              <div className="w-24 h-24 rounded-full bg-brand-primary/10 border border-brand-secondary/20 flex items-center justify-center mx-auto mb-6">
 
-                <FaCheckCircle className="text-5xl text-red-500" />
+                <FaCheckCircle className="text-5xl text-brand-secondary" />
 
               </div>
 
@@ -144,7 +144,7 @@ function Checkout() {
 
               <button
                 onClick={() => setShowSuccess(false)}
-                className="mt-8 px-8 py-4 rounded-2xl bg-red-600 hover:bg-red-700 transition-all duration-300 font-semibold"
+                className="mt-8 px-8 py-4 rounded-2xl bg-brand-primary hover:bg-brand-primary transition-all duration-300 font-semibold"
               >
                 Continue
               </button>
@@ -158,9 +158,9 @@ function Checkout() {
       {/* ================= BACKGROUND GLOW ================= */}
       <div className="absolute inset-0 overflow-hidden">
 
-        <div className="absolute top-[-150px] left-[-120px] w-[420px] h-[420px] bg-red-600/20 blur-[170px] rounded-full"></div>
+        <div className="absolute top-[-150px] left-[-120px] w-[420px] h-[420px] bg-brand-primary/20 blur-[170px] rounded-full"></div>
 
-        <div className="absolute bottom-[-120px] right-[-100px] w-[420px] h-[420px] bg-red-500/10 blur-[170px] rounded-full"></div>
+        <div className="absolute bottom-[-120px] right-[-100px] w-[420px] h-[420px] bg-brand-secondary/10 blur-[170px] rounded-full"></div>
 
       </div>
 
@@ -174,9 +174,9 @@ function Checkout() {
 
             <div className="inline-flex items-center gap-3 px-4 py-2 rounded-full bg-white/5 border border-white/10 mb-6">
 
-              <div className="w-2 h-2 rounded-full  bg-red-500 animate-pulse"></div>
+              <div className="w-2 h-2 rounded-full  bg-brand-secondary animate-pulse"></div>
 
-              <p className="uppercase tracking-[4px] text-xs text-red-500">
+              <p className="uppercase tracking-[4px] text-xs text-brand-secondary">
                 Secure Checkout
               </p>
 
@@ -185,7 +185,7 @@ function Checkout() {
             <h1 className="text-5xl md:text-6xl font-black leading-[0.95]">
 
               Complete Your
-              <span className="block text-red-500">
+              <span className="block text-brand-secondary">
                 Transformation
               </span>
 
@@ -211,7 +211,7 @@ function Checkout() {
               className="group flex items-center gap-3"
             >
 
-              <div className="w-14 h-14 rounded-full bg-red-600 flex items-center justify-center font-bold group-hover:scale-110 transition">
+              <div className="w-14 h-14 rounded-full bg-brand-primary flex items-center justify-center font-bold group-hover:scale-110 transition">
 
                 1
 
@@ -229,7 +229,7 @@ function Checkout() {
 
             </button>
 
-            <div className="w-12 h-[2px] bg-red-500 hidden md:block"></div>
+            <div className="w-12 h-[2px] bg-brand-secondary hidden md:block"></div>
 
             {/* STEP 2 */}
             <button
@@ -241,7 +241,7 @@ function Checkout() {
               className="group flex items-center gap-3"
             >
 
-              <div className="w-14 h-14 rounded-full bg-red-600 flex items-center justify-center font-bold group-hover:scale-110 transition">
+              <div className="w-14 h-14 rounded-full bg-brand-primary flex items-center justify-center font-bold group-hover:scale-110 transition">
 
                 2
 
@@ -304,7 +304,7 @@ function Checkout() {
 
                 <div>
 
-                  <p className="uppercase text-xs tracking-[4px] text-red-500 mb-3">
+                  <p className="uppercase text-xs tracking-[4px] text-brand-secondary mb-3">
                     Selected Program
                   </p>
 
@@ -320,7 +320,7 @@ function Checkout() {
 
                 <div className="text-right">
 
-                  <h2 className="text-4xl font-black text-red-500">
+                  <h2 className="text-4xl font-black text-brand-secondary">
                     {selectedPlan.price}
                   </h2>
 
@@ -348,7 +348,7 @@ function Checkout() {
                     className="flex items-center gap-3 text-gray-300"
                   >
 
-                    <FaCheckCircle className="text-red-500" />
+                    <FaCheckCircle className="text-brand-secondary" />
 
                     <p>{item}</p>
 
@@ -370,14 +370,14 @@ function Checkout() {
 
               <div className="flex items-center gap-4 mb-8">
 
-                <div className="w-14 h-14 rounded-2xl bg-red-600 flex items-center justify-center font-bold text-xl">
+                <div className="w-14 h-14 rounded-2xl bg-brand-primary flex items-center justify-center font-bold text-xl">
 
                   1
 
                 </div>
 
                 <div>
-                  <p className="uppercase tracking-[4px] text-xs text-red-500">
+                  <p className="uppercase tracking-[4px] text-xs text-brand-secondary">
                     Personal Info
                   </p>
 
@@ -397,7 +397,7 @@ function Checkout() {
                   onChange={(e) =>
                     setFormData({ ...formData, name: e.target.value })
                   }
-                  className="bg-white/5 border border-transparent focus:border-red-500 rounded-2xl px-5 py-4 outline-none transition"
+                  className="bg-white/5 border border-transparent focus:border-brand-secondary rounded-2xl px-5 py-4 outline-none transition"
                 />
 
                 <input
@@ -407,7 +407,7 @@ function Checkout() {
                   onChange={(e) =>
                     setFormData({ ...formData, email: e.target.value })
                   }
-                  className="bg-white/5 border border-transparent focus:border-red-500 rounded-2xl px-5 py-4 outline-none transition"
+                  className="bg-white/5 border border-transparent focus:border-brand-secondary rounded-2xl px-5 py-4 outline-none transition"
                 />
 
                 <input
@@ -417,7 +417,7 @@ function Checkout() {
                   onChange={(e) =>
                     setFormData({ ...formData, phone: e.target.value })
                   }
-                  className="bg-white/5 border border-transparent focus:border-red-500 rounded-2xl px-5 py-4 outline-none transition"
+                  className="bg-white/5 border border-transparent focus:border-brand-secondary rounded-2xl px-5 py-4 outline-none transition"
                 />
 
                 <select
@@ -425,7 +425,7 @@ function Checkout() {
                   onChange={(e) =>
                     setFormData({ ...formData, goal: e.target.value })
                   }
-                  className="bg-white/5 border border-transparent focus:border-red-500 rounded-2xl px-5 py-4 outline-none text-gray-400 transition"
+                  className="bg-white/5 border border-transparent focus:border-brand-secondary rounded-2xl px-5 py-4 outline-none text-gray-400 transition"
                 >
 
                   <option value="">Choose Goal</option>
@@ -465,14 +465,14 @@ function Checkout() {
 
               <div className="flex items-center gap-4 mb-8">
 
-                <div className="w-14 h-14 rounded-2xl bg-red-600 flex items-center justify-center font-bold text-xl">
+                <div className="w-14 h-14 rounded-2xl bg-brand-primary flex items-center justify-center font-bold text-xl">
 
                   2
 
                 </div>
 
                 <div>
-                  <p className="uppercase tracking-[4px] text-xs text-red-500">
+                  <p className="uppercase tracking-[4px] text-xs text-brand-secondary">
                     Payment
                   </p>
 
@@ -509,12 +509,12 @@ function Checkout() {
                     onClick={() => setSelectedPayment(method.name)}
                     className={`rounded-2xl p-5 border transition-all duration-300 flex flex-col items-center justify-center gap-3 ${
                       selectedPayment === method.name
-                        ? "border-red-500 bg-red-600/10"
-                        : "border-white/10 hover:border-red-500"
+                        ? "border-brand-secondary bg-brand-primary/10"
+                        : "border-white/10 hover:border-brand-secondary"
                     }`}
                   >
 
-                    <div className="text-2xl text-red-500">
+                    <div className="text-2xl text-brand-secondary">
                       {method.icon}
                     </div>
 
@@ -547,7 +547,7 @@ function Checkout() {
                       Scan using any UPI app
                     </p>
 
-                    <h4 className="mt-2 text-lg font-semibold text-red-500">
+                    <h4 className="mt-2 text-lg font-semibold text-brand-secondary">
                       {upiSettings.id}
                     </h4>
 
@@ -561,7 +561,7 @@ function Checkout() {
                       value={formData.utrNumber} 
                       onChange={(e) => setFormData({ ...formData, utrNumber: e.target.value })}
                       maxLength="12"
-                      className="w-full bg-white/5 border border-white/10 focus:border-red-500 rounded-2xl px-5 py-4 outline-none transition text-center tracking-[4px] font-mono text-lg"
+                      className="w-full bg-white/5 border border-white/10 focus:border-brand-secondary rounded-2xl px-5 py-4 outline-none transition text-center tracking-[4px] font-mono text-lg"
                     />
                     <p className="text-xs text-gray-500 text-center mt-2">Required to instantly auto-validate payment</p>
                   </div>
@@ -570,7 +570,7 @@ function Checkout() {
                   <div className="mt-6 flex flex-col gap-3">
                     <a
                       href={`tez://upi/pay?pa=${upiSettings.id}&pn=${encodeURIComponent(upiSettings.name)}${parsedPrice > 0 ? `&am=${parsedPrice.toFixed(2)}` : ""}`}
-                      className="w-full py-3 rounded-xl border border-white/10 hover:border-red-500 bg-black text-white text-center font-semibold transition-all"
+                      className="w-full py-3 rounded-xl border border-white/10 hover:border-brand-secondary bg-black text-white text-center font-semibold transition-all"
                     >
                       Pay with GPay
                     </a>
@@ -588,7 +588,7 @@ function Checkout() {
                     </a>
                     <a
                       href={`upi://pay?pa=${upiSettings.id}&pn=${encodeURIComponent(upiSettings.name)}${parsedPrice > 0 ? `&am=${parsedPrice.toFixed(2)}` : ""}`}
-                      className="w-full py-3 rounded-xl bg-red-600 hover:bg-red-700 text-white text-center font-semibold transition-all"
+                      className="w-full py-3 rounded-xl bg-brand-primary hover:bg-brand-primary text-white text-center font-semibold transition-all"
                     >
                       Open any UPI App
                     </a>
@@ -604,7 +604,7 @@ function Checkout() {
 
               <div className="flex items-center gap-3 mb-5">
 
-                <FaShieldAlt className="text-red-500 text-xl" />
+                <FaShieldAlt className="text-brand-secondary text-xl" />
 
                 <h3 className="text-xl font-black">
                   Secure Payment
@@ -615,17 +615,17 @@ function Checkout() {
               <div className="space-y-4 text-gray-400 text-sm">
 
                 <div className="flex items-center gap-3">
-                  <FaLock className="text-red-500" />
+                  <FaLock className="text-brand-secondary" />
                   <p>Encrypted & secure transactions</p>
                 </div>
 
                 <div className="flex items-center gap-3">
-                  <FaLock className="text-red-500" />
+                  <FaLock className="text-brand-secondary" />
                   <p>Instant payment verification</p>
                 </div>
 
                 <div className="flex items-center gap-3">
-                  <FaLock className="text-red-500" />
+                  <FaLock className="text-brand-secondary" />
                   <p>Safe & trusted checkout process</p>
                 </div>
 
@@ -633,7 +633,7 @@ function Checkout() {
 
               {/* CTA */}
               {status.message && (
-                <p className="mt-6 rounded-2xl bg-red-500/10 px-4 py-3 text-sm text-red-400">
+                <p className="mt-6 rounded-2xl bg-brand-secondary/10 px-4 py-3 text-sm text-red-400">
                   {status.message}
                 </p>
               )}
@@ -643,7 +643,7 @@ function Checkout() {
                 whileTap={{ scale: 0.96 }}
                 onClick={handleSubmit}
                 disabled={isSubmitting}
-                className="w-full mt-8 py-4 rounded-2xl bg-red-600 hover:bg-red-700 transition-all duration-300 font-semibold flex items-center justify-center gap-3"
+                className="w-full mt-8 py-4 rounded-2xl bg-brand-primary hover:bg-brand-primary transition-all duration-300 font-semibold flex items-center justify-center gap-3"
               >
 
                 {isSubmitting ? "Saving..." : "Complete Payment"}
@@ -652,7 +652,7 @@ function Checkout() {
 
               </motion.button>
 
-              <button className="w-full mt-4 py-4 rounded-2xl border border-white/10 hover:border-red-500 transition-all duration-300 flex items-center justify-center gap-2 text-gray-300">
+              <button className="w-full mt-4 py-4 rounded-2xl border border-white/10 hover:border-brand-secondary transition-all duration-300 flex items-center justify-center gap-2 text-gray-300">
 
                 <FaArrowLeft />
 

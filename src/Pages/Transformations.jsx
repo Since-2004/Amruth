@@ -65,14 +65,14 @@ const Testimonials = () => {
     <section className="relative w-full bg-black py-24 overflow-hidden">
 
       {/* RED GLOW */}
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[500px] h-[250px] bg-red-700/20 blur-[120px]" />
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[500px] h-[250px] bg-brand-primary/20 blur-[120px]" />
 
       <div className="relative z-10 max-w-7xl mx-auto px-[5%]">
 
         {/* ================= HEADING ================= */}
         <div className="text-center mb-20">
 
-          <p className="uppercase tracking-[6px] text-red-500 text-sm mb-4">
+          <p className="uppercase tracking-[6px] text-brand-secondary text-sm mb-4">
             TRANSFORMATIONS
           </p>
 
@@ -86,7 +86,7 @@ const Testimonials = () => {
             BEFORE.
             <br />
 
-            <span className="text-red-600">
+            <span className="text-brand-primary">
               AFTER.
             </span>
           </h2>
@@ -111,7 +111,7 @@ const Testimonials = () => {
                 bg-[#0b0b0b]
                 border
                 border-red-900/20
-                hover:border-red-600/40
+                hover:border-brand-primary/40
                 hover:-translate-y-2
                 transition-all
                 duration-500
@@ -189,7 +189,7 @@ const Testimonials = () => {
                       text-xs
                       tracking-[2px]
                       font-bold
-                      bg-red-600
+                      bg-brand-primary
                       text-white
                     "
                   >
@@ -198,7 +198,7 @@ const Testimonials = () => {
                 </div>
 
                 {/* DIVIDER */}
-                <div className="absolute left-1/2 top-0 -translate-x-1/2 w-[2px] h-full bg-gradient-to-b from-transparent via-red-600 to-transparent" />
+                <div className="absolute left-1/2 top-0 -translate-x-1/2 w-[2px] h-full bg-gradient-to-b from-transparent via-brand-primary to-transparent" />
               </div>
 
               {/* CONTENT */}
@@ -213,7 +213,7 @@ const Testimonials = () => {
                     rounded-full
                     bg-red-950/40
                     border
-                    border-red-600/30
+                    border-brand-primary/30
                     text-red-400
                     text-sm
                     font-semibold
@@ -237,7 +237,7 @@ const Testimonials = () => {
               </div>
 
               {/* GLOW */}
-              <div className="absolute -bottom-24 -right-24 w-48 h-48 bg-red-700/10 rounded-full blur-3xl group-hover:bg-red-600/20 transition-all duration-500" />
+              <div className="absolute -bottom-24 -right-24 w-48 h-48 bg-brand-primary/10 rounded-full blur-3xl group-hover:bg-brand-primary/20 transition-all duration-500" />
             </div>
           ))}
         </div>
@@ -260,7 +260,7 @@ const Testimonials = () => {
           {/* HEADING */}
           <div className="text-center mb-10">
 
-            <p className="uppercase tracking-[5px] text-red-500 text-sm mb-4">
+            <p className="uppercase tracking-[5px] text-brand-secondary text-sm mb-4">
               SHARE YOUR EXPERIENCE
             </p>
 
@@ -303,7 +303,7 @@ const Testimonials = () => {
                 py-4
                 text-white
                 outline-none
-                focus:border-red-500
+                focus:border-brand-secondary
                 transition-all
               "
             />
@@ -325,7 +325,7 @@ const Testimonials = () => {
                 py-4
                 text-white
                 outline-none
-                focus:border-red-500
+                focus:border-brand-secondary
                 transition-all
               "
             />
@@ -347,7 +347,7 @@ const Testimonials = () => {
                 py-4
                 text-white
                 outline-none
-                focus:border-red-500
+                focus:border-brand-secondary
                 transition-all
                 resize-none
               "
@@ -370,8 +370,8 @@ const Testimonials = () => {
               type="submit"
               disabled={isSubmitting}
               className="
-                bg-red-600
-                hover:bg-red-700
+                bg-brand-primary
+                hover:bg-brand-primary
                 transition-all
                 duration-300
                 text-white

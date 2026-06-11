@@ -158,13 +158,13 @@ function Home() {
         id="about-section"
         className="relative w-full py-20 bg-[#070707] overflow-hidden"
       >
-        <div className="absolute top-[-120px] right-[-100px] w-[280px] h-[280px] bg-red-600/10 blur-[120px] rounded-full pointer-events-none" />
+        <div className="absolute top-[-120px] right-[-100px] w-[280px] h-[280px] bg-brand-primary/10 blur-[120px] rounded-full pointer-events-none" />
 
         <div className="relative z-10 max-w-6xl mx-auto px-6 lg:px-10">
 
           <div className="inline-flex items-center gap-3 px-4 py-2 rounded-full border border-white/10 bg-white/[0.03] mb-8">
-            <div className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
-            <p className="text-red-500 uppercase tracking-[4px] text-xs">About Me</p>
+            <div className="w-2 h-2 rounded-full bg-brand-secondary animate-pulse" />
+            <p className="text-brand-secondary uppercase tracking-[4px] text-xs">About Me</p>
           </div>
 
           <div className="grid lg:grid-cols-2 gap-8 items-start">
@@ -172,7 +172,7 @@ function Home() {
             <div className="max-w-[600px]">
               <h2 className="uppercase text-[2.8rem] sm:text-[3.8rem] lg:text-[4.3rem] text-white leading-[0.95] tracking-tight">
                 Fitness With
-                <span className="block bg-gradient-to-r from-red-900 via-red-600 to-red-400 bg-clip-text text-transparent">
+                <span className="block bg-gradient-to-r from-red-900 via-brand-primary to-red-400 bg-clip-text text-transparent">
                   Discipline &amp; Purpose
                 </span>
               </h2>
@@ -182,13 +182,13 @@ function Home() {
                 through structured, disciplined coaching.
               </p>
               <Link to="/login">
-                <button className="mt-8 px-7 py-3.5 rounded-full bg-gradient-to-r from-red-900 via-red-600 to-red-400 text-white uppercase tracking-[2px] text-sm hover:scale-105 transition-all duration-300">
+                <button className="mt-8 px-7 py-3.5 rounded-full bg-gradient-to-r from-red-900 via-brand-primary to-red-400 text-white uppercase tracking-[2px] text-sm hover:scale-105 transition-all duration-300">
                   Start Your Journey
                 </button>
               </Link>
             </div>
 
-            <div className="rounded-[30px] border border-white/10 bg-[#101010] p-7 hover:border-red-500 transition-all duration-300">
+            <div className="rounded-[30px] border border-white/10 bg-[#101010] p-7 hover:border-brand-secondary transition-all duration-300">
               <h3 className="text-white text-2xl mb-6">
                 "Consistency creates confidence. Discipline builds results."
               </h3>
@@ -211,19 +211,19 @@ function Home() {
         <div className="max-w-7xl mx-auto px-6 lg:px-10">
 
           <div className="inline-flex items-center gap-3 px-4 py-2 rounded-full border border-white/10 bg-white/[0.03] mb-6">
-            <div className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
-            <p className="text-red-500 uppercase tracking-[4px] text-xs">Why Train</p>
+            <div className="w-2 h-2 rounded-full bg-brand-secondary animate-pulse" />
+            <p className="text-brand-secondary uppercase tracking-[4px] text-xs">Why Train</p>
           </div>
 
           <h2 className="text-white text-4xl uppercase mb-10">
-            More Than Just <span className="text-red-500">A Workout Plan</span>
+            More Than Just <span className="text-brand-secondary">A Workout Plan</span>
           </h2>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             {whyTrain.map((w, i) => (
               <div
                 key={i}
-                className="p-6 rounded-2xl bg-[#101010] border border-white/8 hover:border-red-500 transition-all duration-300 hover:-translate-y-1"
+                className="p-6 rounded-2xl bg-[#101010] border border-white/8 hover:border-brand-secondary transition-all duration-300 hover:-translate-y-1"
               >
                 <h3 className="text-white font-semibold">{w.title}</h3>
                 <p className="text-gray-400 text-sm mt-3 leading-relaxed">{w.desc}</p>
@@ -239,12 +239,12 @@ function Home() {
         <div className="max-w-7xl mx-auto px-6 lg:px-10">
 
           <div className="inline-flex items-center gap-3 px-4 py-2 rounded-full border border-white/10 bg-white/[0.03] mb-6">
-            <div className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
-            <p className="text-red-500 uppercase tracking-[4px] text-xs">Pricing</p>
+            <div className="w-2 h-2 rounded-full bg-brand-secondary animate-pulse" />
+            <p className="text-brand-secondary uppercase tracking-[4px] text-xs">Pricing</p>
           </div>
 
           <h2 className="text-white text-4xl uppercase mb-10">
-            Choose Your <span className="text-red-500">Transformation Plan</span>
+            Choose Your <span className="text-brand-secondary">Transformation Plan</span>
           </h2>
 
           <div className="grid lg:grid-cols-3 gap-7">
@@ -253,23 +253,23 @@ function Home() {
                 key={i}
                 className={`p-8 rounded-3xl border transition-all duration-300 hover:scale-[1.02]
                   ${p.highlight
-                    ? "bg-[#150505] border-red-500/40 shadow-[0_0_40px_rgba(220,38,38,0.1)]"
-                    : "bg-[#101010] border-white/8 hover:border-red-500"
+                    ? "bg-[#150505] border-brand-secondary/40 shadow-[0_0_40px_rgba(220,38,38,0.1)]"
+                    : "bg-[#101010] border-white/8 hover:border-brand-secondary"
                   }`}
               >
-                <p className="text-red-500 text-xs uppercase tracking-widest">{p.tag}</p>
+                <p className="text-brand-secondary text-xs uppercase tracking-widest">{p.tag}</p>
                 <h3 className="text-white text-3xl font-bold mt-4">{p.title}</h3>
                 <p className="text-gray-400 mt-3 text-sm leading-relaxed">{p.desc}</p>
                 <ul className="mt-5 text-gray-300 text-sm space-y-2">
                   {p.features.map((f, j) => (
                     <li key={j} className="flex items-center gap-2">
-                      <span className="w-1.5 h-1.5 rounded-full bg-red-500 flex-shrink-0" />
+                      <span className="w-1.5 h-1.5 rounded-full bg-brand-secondary flex-shrink-0" />
                       {f}
                     </li>
                   ))}
                 </ul>
                 <Link to="/contact">
-                  <button className="mt-7 w-full bg-red-600 hover:bg-red-500 py-3 rounded-full text-white font-semibold transition-all duration-300 hover:shadow-[0_0_20px_rgba(220,38,38,0.4)]">
+                  <button className="mt-7 w-full bg-brand-primary hover:bg-brand-secondary py-3 rounded-full text-white font-semibold transition-all duration-300 hover:shadow-[0_0_20px_rgba(220,38,38,0.4)]">
                     Contact Now
                   </button>
                 </Link>
@@ -286,8 +286,8 @@ function Home() {
         className="relative py-24 bg-[#070707] overflow-hidden"
       >
         <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <div className="absolute top-[-120px] left-[-120px] w-[380px] h-[380px] bg-red-600/10 blur-[140px] rounded-full" />
-          <div className="absolute bottom-[-140px] right-[-100px] w-[420px] h-[420px] bg-red-500/10 blur-[160px] rounded-full" />
+          <div className="absolute top-[-120px] left-[-120px] w-[380px] h-[380px] bg-brand-primary/10 blur-[140px] rounded-full" />
+          <div className="absolute bottom-[-140px] right-[-100px] w-[420px] h-[420px] bg-brand-secondary/10 blur-[160px] rounded-full" />
         </div>
 
         <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-10">
@@ -296,12 +296,12 @@ function Home() {
           <div className="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-8 mb-14">
             <div>
               <div className="inline-flex items-center gap-3 px-4 py-2 rounded-full border border-white/10 bg-white/[0.03] mb-5">
-                <div className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
-                <p className="text-red-500 uppercase tracking-[4px] text-xs">Testimonials</p>
+                <div className="w-2 h-2 rounded-full bg-brand-secondary animate-pulse" />
+                <p className="text-brand-secondary uppercase tracking-[4px] text-xs">Testimonials</p>
               </div>
               <h2 className="text-4xl md:text-5xl font-black leading-tight text-white">
                 Real Stories.
-                <span className="block text-red-500">Real Transformations.</span>
+                <span className="block text-brand-secondary">Real Transformations.</span>
               </h2>
             </div>
           </div>
@@ -319,16 +319,16 @@ function Home() {
                   whileHover={{ y: -4 }}
                   className="min-w-[320px] md:min-w-[400px] lg:min-w-[420px]
                     rounded-[32px] bg-gradient-to-b from-[#141414] to-[#0b0b0b]
-                    border border-white/5 hover:border-red-500/40
+                    border border-white/5 hover:border-brand-secondary/40
                     p-8 transition-all duration-500 relative overflow-hidden whitespace-normal"
                 >
                   <div className="absolute inset-0 opacity-0 hover:opacity-100 transition duration-500 pointer-events-none">
-                    <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-red-500 to-transparent" />
+                    <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-brand-secondary to-transparent" />
                   </div>
-                  <div className="text-6xl text-red-500/20 font-black leading-none">"</div>
+                  <div className="text-6xl text-brand-secondary/20 font-black leading-none">"</div>
                   <p className="mt-4 text-gray-300 leading-relaxed text-[15px]">{t.text}</p>
                   <div className="flex items-center gap-4 mt-8 pt-6 border-t border-white/5">
-                    <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-red-600 to-red-800 flex items-center justify-center font-bold text-white text-lg shadow-lg shadow-red-600/20">
+                    <div className="w-14 h-14 rounded-2xl bg-gradient-to-br from-brand-primary to-red-800 flex items-center justify-center font-bold text-white text-lg shadow-lg shadow-brand-primary/20">
                       {t.initial}
                     </div>
                     <div>
@@ -351,7 +351,7 @@ function Home() {
             ].map((item, i) => (
               <div
                 key={i}
-                className="rounded-2xl bg-white/[0.03] border border-white/5 p-6 text-center hover:border-red-500/30 hover:-translate-y-1 transition-all duration-300"
+                className="rounded-2xl bg-white/[0.03] border border-white/5 p-6 text-center hover:border-brand-secondary/30 hover:-translate-y-1 transition-all duration-300"
               >
                 <h3 className="text-3xl font-black text-white">{item.number}</h3>
                 <p className="text-xs uppercase tracking-[3px] text-gray-500 mt-2">{item.label}</p>
@@ -367,23 +367,23 @@ function Home() {
         <div className="max-w-6xl mx-auto px-6 lg:px-10">
 
           <div className="inline-flex items-center gap-3 px-4 py-2 rounded-full border border-white/10 bg-white/[0.03] mb-6">
-            <div className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
-            <p className="text-red-500 uppercase tracking-[4px] text-xs">FAQ</p>
+            <div className="w-2 h-2 rounded-full bg-brand-secondary animate-pulse" />
+            <p className="text-brand-secondary uppercase tracking-[4px] text-xs">FAQ</p>
           </div>
 
           <h2 className="text-white text-4xl uppercase mb-10">
-            Frequently Asked <span className="text-red-500">Questions</span>
+            Frequently Asked <span className="text-brand-secondary">Questions</span>
           </h2>
 
           <div className="grid md:grid-cols-2 gap-6">
             {faqData.map((faq, i) => (
               <div
                 key={i}
-                className="group p-6 rounded-2xl bg-[#101010] border border-white/8 hover:border-red-500 transition-all duration-300"
+                className="group p-6 rounded-2xl bg-[#101010] border border-white/8 hover:border-brand-secondary transition-all duration-300"
               >
                 <div className="flex justify-between items-center">
                   <h3 className="text-white text-base font-semibold pr-4">{faq.question}</h3>
-                  <FaChevronDown className="text-white/40 group-hover:text-red-500 transition-all duration-300 group-hover:rotate-180 flex-shrink-0" />
+                  <FaChevronDown className="text-white/40 group-hover:text-brand-secondary transition-all duration-300 group-hover:rotate-180 flex-shrink-0" />
                 </div>
                 <p className="text-gray-400 text-sm mt-3 opacity-0 max-h-0 group-hover:opacity-100 group-hover:max-h-40 overflow-hidden transition-all duration-300">
                   {faq.answer}

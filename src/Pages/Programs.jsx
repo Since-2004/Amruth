@@ -76,9 +76,9 @@ function Programs() {
       {/* ================= BACKGROUND GLOW ================= */}
       <div className="absolute inset-0 overflow-hidden">
 
-        <div className="absolute top-[-150px] left-[-150px] w-[380px] h-[380px] bg-red-600/10 blur-[180px] rounded-full"></div>
+        <div className="absolute top-[-150px] left-[-150px] w-[380px] h-[380px] bg-brand-primary/10 blur-[180px] rounded-full"></div>
 
-        <div className="absolute bottom-[-180px] right-[-180px] w-[420px] h-[420px] bg-red-500/5 blur-[180px] rounded-full"></div>
+        <div className="absolute bottom-[-180px] right-[-180px] w-[420px] h-[420px] bg-brand-secondary/5 blur-[180px] rounded-full"></div>
 
       </div>
 
@@ -90,9 +90,9 @@ function Programs() {
           {/* TAG */}
           <div className="inline-flex items-center gap-3 px-4 py-2 rounded-full bg-white/[0.03] mb-7">
 
-            <div className="w-2 h-2 rounded-full bg-red-500 animate-pulse"></div>
+            <div className="w-2 h-2 rounded-full bg-brand-secondary animate-pulse"></div>
 
-            <p className="text-red-500 uppercase tracking-[4px] text-[11px]">
+            <p className="text-brand-secondary uppercase tracking-[4px] text-[11px]">
               Coaching Programs
             </p>
 
@@ -103,7 +103,7 @@ function Programs() {
 
             Choose Your
 
-            <span className="block text-red-500">
+            <span className="block text-brand-secondary">
               Transformation Plan
             </span>
 
@@ -136,19 +136,19 @@ function Programs() {
                 p-8
                 group
                 border border-transparent
-                hover:border-red-500/40
+                hover:border-brand-secondary/40
                 transition-all duration-500
               "
             >
 
               {/* TOP GLOW */}
-              <div className="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-red-500 to-transparent opacity-0 group-hover:opacity-70 transition duration-500"></div>
+              <div className="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-brand-secondary to-transparent opacity-0 group-hover:opacity-70 transition duration-500"></div>
 
               {/* HOVER GLOW */}
-              <div className="absolute inset-0 bg-red-600/[0.03] opacity-0 group-hover:opacity-100 transition duration-500"></div>
+              <div className="absolute inset-0 bg-brand-primary/[0.03] opacity-0 group-hover:opacity-100 transition duration-500"></div>
 
               {/* ICON */}
-              <div className="relative z-10 w-16 h-16 rounded-2xl bg-red-600/10 text-red-500 flex items-center justify-center text-2xl group-hover:scale-110 transition duration-300">
+              <div className="relative z-10 w-16 h-16 rounded-2xl bg-brand-primary/10 text-brand-secondary flex items-center justify-center text-2xl group-hover:scale-110 transition duration-300">
 
                 {program.icon}
 
@@ -165,7 +165,7 @@ function Programs() {
                 {/* DURATION */}
                 <div className="flex items-center gap-3 text-gray-300">
 
-                  <FaClock className="text-red-500" />
+                  <FaClock className="text-brand-secondary" />
 
                   <p>{program.duration}</p>
 
@@ -174,7 +174,7 @@ function Programs() {
                 {/* SCHEDULE */}
                 <div className="flex items-center gap-3 text-gray-300">
 
-                  <FaCalendarAlt className="text-red-500" />
+                  <FaCalendarAlt className="text-brand-secondary" />
 
                   <p>{program.schedule}</p>
 
@@ -228,7 +228,7 @@ function Programs() {
                   py-4
                   rounded-xl
                   bg-white/[0.04]
-                  hover:bg-red-600
+                  hover:bg-brand-primary
                   font-semibold
                   flex
                   items-center
@@ -253,7 +253,7 @@ function Programs() {
           {/* GLOW */}
           <div className="absolute inset-0">
 
-            <div className="absolute top-[-100px] right-[-100px] w-[260px] h-[260px] bg-red-600/10 blur-[120px] rounded-full"></div>
+            <div className="absolute top-[-100px] right-[-100px] w-[260px] h-[260px] bg-brand-primary/10 blur-[120px] rounded-full"></div>
 
           </div>
 
@@ -263,7 +263,7 @@ function Programs() {
 
               Ready To Start Your
 
-              <span className="block text-red-500">
+              <span className="block text-brand-secondary">
                 Transformation Journey?
               </span>
 
@@ -283,7 +283,7 @@ function Programs() {
               <motion.button
                 whileHover={{ scale: 1.04 }}
                 whileTap={{ scale: 0.97 }}
-                className="px-8 py-4 rounded-xl bg-red-600 hover:bg-red-700 font-semibold flex items-center gap-3 transition-all duration-300"
+                className="px-8 py-4 rounded-xl bg-brand-primary hover:bg-brand-primary font-semibold flex items-center gap-3 transition-all duration-300"
               >
 
                 Start Coaching

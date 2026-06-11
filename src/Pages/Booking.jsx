@@ -110,7 +110,7 @@ function Booking() {
               animate={{ scale: 1, y: 0 }}
               exit={{ scale: 0.8, y: 30 }}
               transition={{ duration: 0.35 }}
-              className="w-full max-w-md rounded-[32px] bg-[#0d0d0d] border border-red-500/20 p-8 text-center shadow-[0_0_80px_rgba(220,38,38,0.2)] my-auto"
+              className="w-full max-w-md rounded-[32px] bg-[#0d0d0d] border border-brand-secondary/20 p-8 text-center shadow-[0_0_80px_rgba(220,38,38,0.2)] my-auto"
             >
               <div className="w-20 h-20 rounded-full bg-green-500/10 border border-green-500/20 flex items-center justify-center mx-auto mb-6">
                 <FaCheckCircle className="text-4xl text-green-500" />
@@ -123,9 +123,9 @@ function Booking() {
               </p>
 
               {selectedPrice > 0 && (
-                <div className="mb-6 py-3 px-4 rounded-xl bg-red-600/10 border border-red-500/20 inline-block">
+                <div className="mb-6 py-3 px-4 rounded-xl bg-brand-primary/10 border border-brand-secondary/20 inline-block">
                   <p className="text-sm text-gray-400 mb-1">Amount to Pay</p>
-                  <p className="text-3xl font-black text-red-500">₹{selectedPrice}</p>
+                  <p className="text-3xl font-black text-brand-secondary">₹{selectedPrice}</p>
                 </div>
               )}
 
@@ -139,13 +139,13 @@ function Booking() {
               </div>
 
               <p className="text-gray-400 text-sm">Scan using any UPI app</p>
-              <h4 className="mt-1 text-lg font-semibold text-red-500 mb-6">{upiSettings.id}</h4>
+              <h4 className="mt-1 text-lg font-semibold text-brand-secondary mb-6">{upiSettings.id}</h4>
 
               {/* Direct App Links for Mobile */}
               <div className="flex flex-col gap-3 mb-8">
                 <a
                   href={`tez://upi/pay?pa=${upiSettings.id}&pn=${encodeURIComponent(upiSettings.name)}${selectedPrice > 0 ? `&am=${selectedPrice.toFixed(2)}` : ""}`}
-                  className="w-full py-3 rounded-xl border border-white/10 hover:border-red-500 bg-black text-white text-center text-sm font-semibold transition-all"
+                  className="w-full py-3 rounded-xl border border-white/10 hover:border-brand-secondary bg-black text-white text-center text-sm font-semibold transition-all"
                 >
                   Pay with GPay
                 </a>
@@ -171,7 +171,7 @@ function Booking() {
                   value={formData.utrNumber || ""} 
                   onChange={(e) => setFormData({ ...formData, utrNumber: e.target.value })}
                   maxLength="12"
-                  className="w-full bg-white/5 border border-white/10 focus:border-red-500 rounded-2xl px-5 py-4 outline-none transition text-center tracking-[4px] font-mono text-lg"
+                  className="w-full bg-white/5 border border-white/10 focus:border-brand-secondary rounded-2xl px-5 py-4 outline-none transition text-center tracking-[4px] font-mono text-lg"
                 />
               </div>
 
@@ -185,7 +185,7 @@ function Booking() {
                 <button
                   onClick={handleConfirmPayment}
                   disabled={isSubmitting}
-                  className="w-2/3 px-8 py-4 rounded-2xl bg-red-600 hover:bg-red-700 transition-all duration-300 font-semibold disabled:opacity-50"
+                  className="w-2/3 px-8 py-4 rounded-2xl bg-brand-primary hover:bg-brand-primary transition-all duration-300 font-semibold disabled:opacity-50"
                 >
                   {isSubmitting ? "Confirming..." : "Confirm Booking"}
                 </button>
@@ -236,7 +236,7 @@ function Booking() {
                 disabled={slot.availableSeats <= 0}
                 className={`text-left rounded-2xl border p-5 transition-all ${
                   selectedSlotId === slot.id
-                    ? "border-[var(--brand-secondary)] bg-red-600/10"
+                    ? "border-[var(--brand-secondary)] bg-brand-primary/10"
                     : "border-white/10 bg-white/[0.03] hover:border-[var(--brand-secondary)]"
                 } ${slot.availableSeats <= 0 ? "opacity-50" : ""}`}
               >

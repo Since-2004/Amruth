@@ -49,9 +49,9 @@ function Contact() {
       {/* SOFT BACKGROUND GLOW */}
       <div className="absolute inset-0 overflow-hidden">
 
-        <div className="absolute top-[-180px] left-[-180px] w-[420px] h-[420px] bg-red-600/10 blur-[180px] rounded-full"></div>
+        <div className="absolute top-[-180px] left-[-180px] w-[420px] h-[420px] bg-brand-primary/10 blur-[180px] rounded-full"></div>
 
-        <div className="absolute bottom-[-180px] right-[-180px] w-[420px] h-[420px] bg-red-500/5 blur-[180px] rounded-full"></div>
+        <div className="absolute bottom-[-180px] right-[-180px] w-[420px] h-[420px] bg-brand-secondary/5 blur-[180px] rounded-full"></div>
 
       </div>
 
@@ -67,9 +67,9 @@ function Contact() {
           {/* TAG */}
           <div className="inline-flex items-center gap-3 px-4 py-2 rounded-full border border-white/5 bg-white/[0.03] mb-7">
 
-            <div className="w-2 h-2 rounded-full bg-red-500 animate-pulse"></div>
+            <div className="w-2 h-2 rounded-full bg-brand-secondary animate-pulse"></div>
 
-            <p className="text-red-500 uppercase tracking-[4px] text-[11px]">
+            <p className="text-brand-secondary uppercase tracking-[4px] text-[11px]">
               Contact Me
             </p>
 
@@ -80,7 +80,7 @@ function Contact() {
 
             Let’s Build
 
-            <span className="block text-red-500">
+            <span className="block text-brand-secondary">
               Your Best Physique
             </span>
 
@@ -100,10 +100,10 @@ function Contact() {
             {/* PHONE */}
             <motion.div
               whileHover={{ x: 6 }}
-              className="flex items-center gap-4 py-5 border-b border-white/5 hover:border-red-500/30 transition-all duration-300"
+              className="flex items-center gap-4 py-5 border-b border-white/5 hover:border-brand-secondary/30 transition-all duration-300"
             >
 
-              <div className="w-12 h-12 rounded-xl bg-red-600/10 flex items-center justify-center text-red-500 text-lg">
+              <div className="w-12 h-12 rounded-xl bg-brand-primary/10 flex items-center justify-center text-brand-secondary text-lg">
 
                 <FaPhoneAlt />
 
@@ -126,10 +126,10 @@ function Contact() {
             {/* EMAIL */}
             <motion.div
               whileHover={{ x: 6 }}
-              className="flex items-center gap-4 py-5 border-b border-white/5 hover:border-red-500/30 transition-all duration-300"
+              className="flex items-center gap-4 py-5 border-b border-white/5 hover:border-brand-secondary/30 transition-all duration-300"
             >
 
-              <div className="w-12 h-12 rounded-xl bg-red-600/10 flex items-center justify-center text-red-500 text-lg">
+              <div className="w-12 h-12 rounded-xl bg-brand-primary/10 flex items-center justify-center text-brand-secondary text-lg">
 
                 <FaEnvelope />
 
@@ -152,10 +152,10 @@ function Contact() {
             {/* LOCATION */}
             <motion.div
               whileHover={{ x: 6 }}
-              className="flex items-center gap-4 py-5 border-b border-white/5 hover:border-red-500/30 transition-all duration-300"
+              className="flex items-center gap-4 py-5 border-b border-white/5 hover:border-brand-secondary/30 transition-all duration-300"
             >
 
-              <div className="w-12 h-12 rounded-xl bg-red-600/10 flex items-center justify-center text-red-500 text-lg">
+              <div className="w-12 h-12 rounded-xl bg-brand-primary/10 flex items-center justify-center text-brand-secondary text-lg">
 
                 <FaMapMarkerAlt />
 
@@ -182,7 +182,7 @@ function Contact() {
 
             <motion.div
               whileHover={{ y: -5 }}
-              className="w-12 h-12 rounded-xl border border-white/5 bg-white/[0.03] flex items-center justify-center text-lg hover:border-red-500 hover:text-red-500 transition-all duration-300 cursor-pointer"
+              className="w-12 h-12 rounded-xl border border-white/5 bg-white/[0.03] flex items-center justify-center text-lg hover:border-brand-secondary hover:text-brand-secondary transition-all duration-300 cursor-pointer"
             >
 
               <FaInstagram />
@@ -191,7 +191,7 @@ function Contact() {
 
             <motion.div
               whileHover={{ y: -5 }}
-              className="w-12 h-12 rounded-xl border border-white/5 bg-white/[0.03] flex items-center justify-center text-lg hover:border-red-500 hover:text-red-500 transition-all duration-300 cursor-pointer"
+              className="w-12 h-12 rounded-xl border border-white/5 bg-white/[0.03] flex items-center justify-center text-lg hover:border-brand-secondary hover:text-brand-secondary transition-all duration-300 cursor-pointer"
             >
 
               <FaWhatsapp />
@@ -212,13 +212,13 @@ function Contact() {
           <div className="relative rounded-[30px] border border-white/5 bg-[#0b0b0b] p-8 md:p-10 overflow-hidden">
 
             {/* TOP LINE */}
-            <div className="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-red-500 to-transparent"></div>
+            <div className="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-brand-secondary to-transparent"></div>
 
             <h3 className="text-3xl font-bold">
               Send a Message
             </h3>
 
-            <div className="w-16 h-[2px] bg-red-500 rounded-full mt-5 mb-7"></div>
+            <div className="w-16 h-[2px] bg-brand-secondary rounded-full mt-5 mb-7"></div>
 
             <p className="text-gray-500 mb-8 text-sm leading-relaxed">
 
@@ -236,7 +236,7 @@ function Contact() {
                 placeholder="Your Name"
                 value={formData.name}
                 onChange={handleChange}
-                className="w-full bg-white/[0.03] border border-white/5 rounded-xl px-5 py-4 outline-none focus:border-red-500 transition-all duration-300"
+                className="w-full bg-white/[0.03] border border-white/5 rounded-xl px-5 py-4 outline-none focus:border-brand-secondary transition-all duration-300"
               />
 
               {/* EMAIL */}
@@ -246,7 +246,7 @@ function Contact() {
                 placeholder="Email Address"
                 value={formData.email}
                 onChange={handleChange}
-                className="w-full bg-white/[0.03] border border-white/5 rounded-xl px-5 py-4 outline-none focus:border-red-500 transition-all duration-300"
+                className="w-full bg-white/[0.03] border border-white/5 rounded-xl px-5 py-4 outline-none focus:border-brand-secondary transition-all duration-300"
               />
 
               {/* GOAL */}
@@ -254,7 +254,7 @@ function Contact() {
                 name="goal"
                 value={formData.goal}
                 onChange={handleChange}
-                className="w-full bg-white/[0.03] border border-white/5 rounded-xl px-5 py-4 outline-none focus:border-red-500 text-gray-400"
+                className="w-full bg-white/[0.03] border border-white/5 rounded-xl px-5 py-4 outline-none focus:border-brand-secondary text-gray-400"
               >
 
                 <option value="">Choose Your Goal</option>
@@ -273,7 +273,7 @@ function Contact() {
                 placeholder="Tell me about your goals..."
                 value={formData.message}
                 onChange={handleChange}
-                className="w-full bg-white/[0.03] border border-white/5 rounded-xl px-5 py-4 outline-none focus:border-red-500 transition-all duration-300 resize-none"
+                className="w-full bg-white/[0.03] border border-white/5 rounded-xl px-5 py-4 outline-none focus:border-brand-secondary transition-all duration-300 resize-none"
               ></textarea>
 
               {status.message && (
@@ -293,7 +293,7 @@ function Contact() {
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
                 disabled={isSubmitting}
-                className="w-full py-4 rounded-xl bg-red-600 hover:bg-red-700 transition-all duration-300 font-semibold flex items-center justify-center gap-3 mt-3"
+                className="w-full py-4 rounded-xl bg-brand-primary hover:bg-brand-primary transition-all duration-300 font-semibold flex items-center justify-center gap-3 mt-3"
               >
 
                 {isSubmitting ? "Sending..." : "Send Message"}

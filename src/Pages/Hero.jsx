@@ -77,7 +77,7 @@ function Hero() {
                 <linearGradient id="chevGradient" x1="0%" y1="50%" x2="100%" y2="50%">
                   <stop offset="0%" stopColor="#7f1d1d" stopOpacity="0" />
                   <stop offset="50%" stopColor="#b91c1c" stopOpacity="0.6" />
-                  <stop offset="100%" stopColor="#dc2626" stopOpacity="1" />
+                  <stop offset="100%" stopColor="var(--brand-primary)" stopOpacity="1" />
                 </linearGradient>
               </defs>
               <path d="M0 0 L400 400 L0 800 L200 800 L600 400 L200 0 Z" fill="url(#chevGradient)" />

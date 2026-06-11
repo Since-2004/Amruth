@@ -37,13 +37,13 @@ function Footer() {
         <motion.div
           animate={{ x: [0, 30, 0], y: [0, -20, 0] }}
           transition={{ duration: 12, repeat: Infinity }}
-          className="absolute top-[-120px] left-[-120px] w-[400px] h-[400px] bg-red-600/20 blur-[160px] rounded-full"
+          className="absolute top-[-120px] left-[-120px] w-[400px] h-[400px] bg-brand-primary/20 blur-[160px] rounded-full"
         />
 
         <motion.div
           animate={{ x: [0, -40, 0], y: [0, 30, 0] }}
           transition={{ duration: 15, repeat: Infinity }}
-          className="absolute bottom-[-120px] right-[-120px] w-[420px] h-[420px] bg-red-500/10 blur-[170px] rounded-full"
+          className="absolute bottom-[-120px] right-[-120px] w-[420px] h-[420px] bg-brand-secondary/10 blur-[170px] rounded-full"
         />
 
       </div>
@@ -66,7 +66,7 @@ function Footer() {
         <div className="relative rounded-[40px] border border-white/10 bg-white/[0.03] backdrop-blur-2xl px-8 py-14 md:px-14 overflow-hidden">
 
           {/* TOP LIGHT */}
-          <div className="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-red-500 to-transparent" />
+          <div className="absolute top-0 left-0 w-full h-[2px] bg-gradient-to-r from-transparent via-brand-secondary to-transparent" />
 
           <div className="grid lg:grid-cols-2 gap-10 items-center">
 
@@ -81,9 +81,9 @@ function Footer() {
                 className="inline-flex items-center gap-3 px-4 py-2 rounded-full border border-white/10 bg-white/5 mb-6"
               >
 
-                <div className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
+                <div className="w-2 h-2 rounded-full bg-brand-secondary animate-pulse" />
 
-                <p className="text-red-500 uppercase tracking-[4px] text-xs">
+                <p className="text-brand-secondary uppercase tracking-[4px] text-xs">
                   Start Your Journey
                 </p>
 
@@ -97,7 +97,7 @@ function Footer() {
                 className="text-4xl md:text-5xl font-black leading-[1]"
               >
                 Ready to Build
-                <span className="block text-red-500">
+                <span className="block text-brand-secondary">
                   Your Best Version?
                 </span>
               </motion.h2>
@@ -118,7 +118,7 @@ function Footer() {
                 ].map((stat, i) => (
                   <div
                     key={i}
-                    className="px-5 py-4 rounded-2xl bg-black/40 border border-white/5 hover:border-red-500/40 transition-all duration-300"
+                    className="px-5 py-4 rounded-2xl bg-black/40 border border-white/5 hover:border-brand-secondary/40 transition-all duration-300"
                   >
 
                     <h4 className="text-2xl font-bold text-white">
@@ -144,7 +144,7 @@ function Footer() {
                 <motion.button
                   whileHover={{ scale: 1.03 }}
                   whileTap={{ scale: 0.95 }}
-                  className="group w-full py-5 rounded-2xl bg-red-600 hover:bg-red-700 transition-all duration-300 font-semibold flex items-center justify-center gap-3 shadow-lg shadow-red-600/20"
+                  className="group w-full py-5 rounded-2xl bg-brand-primary hover:bg-brand-primary transition-all duration-300 font-semibold flex items-center justify-center gap-3 shadow-lg shadow-brand-primary/20"
                 >
 
                   Start Training Now
@@ -165,10 +165,10 @@ function Footer() {
                 ].map((item, i) => (
                   <div
                     key={i}
-                    className="flex items-center gap-3 p-4 rounded-2xl bg-black/40 border border-white/5 hover:border-red-500/30 transition-all duration-300"
+                    className="flex items-center gap-3 p-4 rounded-2xl bg-black/40 border border-white/5 hover:border-brand-secondary/30 transition-all duration-300"
                   >
 
-                    <ChevronRight className="text-red-500 w-4 h-4" />
+                    <ChevronRight className="text-brand-secondary w-4 h-4" />
 
                     <p className="text-sm text-gray-300">
                       {item}
@@ -207,7 +207,7 @@ function Footer() {
                   AMRUTH ASCEND
                 </h3>
 
-                <p className="text-xs uppercase tracking-[4px] text-red-500 mt-2">
+                <p className="text-xs uppercase tracking-[4px] text-brand-secondary mt-2">
                   Elite Fitness Coaching
                 </p>
               </div>
@@ -225,7 +225,7 @@ function Footer() {
                 <motion.div
                   whileHover={{ y: -5 }}
                   key={i}
-                  className="w-12 h-12 rounded-2xl border border-white/10 bg-white/5 flex items-center justify-center hover:border-red-500 hover:text-red-500 transition-all duration-300 cursor-pointer" >
+                  className="w-12 h-12 rounded-2xl border border-white/10 bg-white/5 flex items-center justify-center hover:border-brand-secondary hover:text-brand-secondary transition-all duration-300 cursor-pointer" >
                   <Icon />
                 </motion.div>
               ))}
@@ -244,7 +244,7 @@ function Footer() {
     <li>
       <Link
         to="/"
-        className="hover:text-red-500 transition-all duration-300 hover:translate-x-1 inline-block"
+        className="hover:text-brand-secondary transition-all duration-300 hover:translate-x-1 inline-block"
       >
         Home
       </Link>
@@ -253,7 +253,7 @@ function Footer() {
     <li>
       <Link
         to="/about"
-        className="hover:text-red-500 transition-all duration-300 hover:translate-x-1 inline-block"
+        className="hover:text-brand-secondary transition-all duration-300 hover:translate-x-1 inline-block"
       >
         About
       </Link>
@@ -262,7 +262,7 @@ function Footer() {
     <li>
       <Link
         to="/programs"
-        className="hover:text-red-500 transition-all duration-300 hover:translate-x-1 inline-block"
+        className="hover:text-brand-secondary transition-all duration-300 hover:translate-x-1 inline-block"
       >
         Programs
       </Link>
@@ -271,7 +271,7 @@ function Footer() {
     <li>
       <Link
         to="/testimonials"
-        className="hover:text-red-500 transition-all duration-300 hover:translate-x-1 inline-block"
+        className="hover:text-brand-secondary transition-all duration-300 hover:translate-x-1 inline-block"
       >
         Testimonials
       </Link>
@@ -280,7 +280,7 @@ function Footer() {
     <li>
       <Link
         to="/contact"
-        className="hover:text-red-500 transition-all duration-300 hover:translate-x-1 inline-block"
+        className="hover:text-brand-secondary transition-all duration-300 hover:translate-x-1 inline-block"
       >
         Contact
       </Link>
@@ -304,7 +304,7 @@ function Footer() {
               ].map((item, i) => (
                 <li
                   key={i}
-                  className="hover:text-red-500 cursor-pointer transition-all duration-300 hover:translate-x-1" >
+                  className="hover:text-brand-secondary cursor-pointer transition-all duration-300 hover:translate-x-1" >
                   {item}
                 </li>
               ))}
@@ -337,7 +337,7 @@ function Footer() {
               ].map((item, i) => (
                 <div key={i} className="flex gap-4 items-start">
 
-                  <div className="w-11 h-11 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-red-500">
+                  <div className="w-11 h-11 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-brand-secondary">
                     {item.icon}
                   </div>
 
@@ -384,7 +384,7 @@ function FloatingIcon({ icon, className }) {
         repeat: Infinity,
         ease: "easeInOut",
       }}
-      className={`absolute text-red-500/20 ${className}`}
+      className={`absolute text-brand-secondary/20 ${className}`}
     >
       {icon}
     </motion.div>

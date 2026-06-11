@@ -6,3 +6,8 @@
   --brand-surface: #0b0b0b;
 }
 
+@theme {
+  --color-brand-primary: var(--brand-primary);
+  --color-brand-secondary: var(--brand-secondary);
+  --color-brand-surface: var(--brand-surface);
+}

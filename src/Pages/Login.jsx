@@ -31,7 +31,7 @@ function AuthInput({
           error ? "border-red-500" : "border-white/10 focus-within:border-red-500"
         }`}
       >
-        <Icon className="text-red-500" />
+        <Icon className="text-brand-secondary" />
         <input
           type={currentType}
           name={name}
@@ -146,8 +146,8 @@ function Login() {
 
       {/* BACKGROUND GLOW */}
       <div className="absolute inset-0">
-        <div className="absolute top-[-150px] left-[-150px] w-[450px] h-[450px] bg-red-600/20 blur-[180px] rounded-full"></div>
-        <div className="absolute bottom-[-150px] right-[-150px] w-[450px] h-[450px] bg-red-500/10 blur-[180px] rounded-full"></div>
+        <div className="absolute top-[-150px] left-[-150px] w-[450px] h-[450px] bg-brand-primary/20 blur-[180px] rounded-full"></div>
+        <div className="absolute bottom-[-150px] right-[-150px] w-[450px] h-[450px] bg-brand-secondary/10 blur-[180px] rounded-full"></div>
       </div>
 
       {/* CARD */}
@@ -161,15 +161,15 @@ function Login() {
         {/* LEFT PANEL */}
         <div className="hidden lg:flex flex-col justify-center p-14 bg-gradient-to-br from-black via-[#120000] to-black relative">
 
-          <div className="absolute w-[300px] h-[300px] bg-red-600/10 blur-[120px] rounded-full top-10 left-10"></div>
+          <div className="absolute w-[300px] h-[300px] bg-brand-primary/10 blur-[120px] rounded-full top-10 left-10"></div>
 
-          <p className="text-red-500 uppercase tracking-[6px] text-xs">
+          <p className="text-brand-secondary uppercase tracking-[6px] text-xs">
             Elite Fitness Coaching
           </p>
 
           <h1 className="text-5xl font-black leading-tight mt-4">
             Build Your
-            <span className="block text-red-500">Strongest Self</span>
+            <span className="block text-brand-secondary">Strongest Self</span>
           </h1>
 
           <p className="text-gray-400 mt-6 leading-relaxed max-w-sm">
@@ -202,7 +202,7 @@ function Login() {
             <button
               onClick={() => { setIsLogin(true); setErrors({}); }}
               className={`flex-1 py-3 rounded-full text-sm font-semibold transition ${
-                isLogin ? "bg-red-600 text-white" : "text-gray-400"
+                isLogin ? "bg-brand-primary text-white" : "text-gray-400"
               }`}
             >
               Login
@@ -211,7 +211,7 @@ function Login() {
             <button
               onClick={() => { setIsLogin(false); setErrors({}); }}
               className={`flex-1 py-3 rounded-full text-sm font-semibold transition ${
-                !isLogin ? "bg-red-600 text-white" : "text-gray-400"
+                !isLogin ? "bg-brand-primary text-white" : "text-gray-400"
               }`}
             >
               Register
@@ -287,7 +287,7 @@ function Login() {
 
               {isLogin && (
                 <div className="text-right">
-                  <button className="text-sm text-gray-500 hover:text-red-500">
+                  <button className="text-sm text-gray-500 hover:text-brand-secondary">
                     Forgot Password?
                   </button>
                 </div>
@@ -310,7 +310,7 @@ function Login() {
                 whileTap={{ scale: 0.97 }}
                 type="submit"
                 disabled={isSubmitting}
-                className="w-full py-4 rounded-2xl bg-red-600 hover:bg-red-700 font-semibold flex items-center justify-center gap-2"
+                className="w-full py-4 rounded-2xl bg-brand-primary hover:bg-brand-primary font-semibold flex items-center justify-center gap-2"
               >
                 {isSubmitting ? "Please wait..." : isLogin ? "Login" : "Create Account"}
                 <FaArrowRight />
@@ -323,7 +323,7 @@ function Login() {
             {isLogin ? "Don’t have an account?" : "Already have an account?"}
             <button
               onClick={() => { setIsLogin(!isLogin); setErrors({}); }}
-              className="text-red-500 ml-2 hover:underline"
+              className="text-brand-secondary ml-2 hover:underline"
             >
               {isLogin ? "Register" : "Login"}
             </button>
