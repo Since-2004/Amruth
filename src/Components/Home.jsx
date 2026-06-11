@@ -148,13 +148,6 @@ function Home() {
     },
   ];
 
-  useEffect(() => {
-    if (paused) return;
-    const timer = setInterval(() => {
-      setIndex((prev) => (prev + 1 >= testimonials.length ? 0 : prev + 1));
-    }, 5000);
-    return () => clearInterval(timer);
-  }, [paused, testimonials.length]);
 
   return (
     <>
@@ -311,46 +304,23 @@ function Home() {
                 <span className="block text-red-500">Real Transformations.</span>
               </h2>
             </div>
-
-            <div className="flex gap-3">
-              <button
-                onClick={() =>
-                  setIndex((prev) => (prev === 0 ? testimonials.length - 1 : prev - 1))
-                }
-                className="group w-14 h-14 rounded-2xl bg-white/[0.03] border border-white/8 hover:border-red-500 flex items-center justify-center transition-all duration-300"
-              >
-                <FaChevronLeft className="text-white group-hover:text-red-500 transition-colors duration-300" />
-              </button>
-              <button
-                onClick={() =>
-                  setIndex((prev) => (prev >= testimonials.length - 1 ? 0 : prev + 1))
-                }
-                className="group w-14 h-14 rounded-2xl bg-white/[0.03] border border-white/8 hover:border-red-500 flex items-center justify-center transition-all duration-300"
-              >
-                <FaChevronRight className="text-white group-hover:text-red-500 transition-colors duration-300" />
-              </button>
-            </div>
           </div>
 
-          {/* Slider */}
-          <div
-            className="overflow-hidden"
-            onMouseEnter={() => setPaused(true)}
-            onMouseLeave={() => setPaused(false)}
-          >
+          {/* Slider (Marquee) */}
+          <div className="overflow-hidden relative flex">
             <motion.div
-              className="flex gap-6"
-              animate={{ x: `calc(-${index * 33.333}% - ${index * 24}px)` }}
-              transition={{ duration: 0.7, ease: "easeInOut" }}
+              className="flex gap-6 whitespace-nowrap w-max"
+              animate={{ x: ["0%", "-50%"] }}
+              transition={{ ease: "linear", duration: 40, repeat: Infinity }}
             >
-              {testimonials.map((t, i) => (
+              {[...testimonials, ...testimonials].map((t, i) => (
                 <motion.div
                   key={i}
                   whileHover={{ y: -4 }}
-                  className="min-w-full md:min-w-[calc(50%-12px)] lg:min-w-[calc(33.333%-16px)]
+                  className="min-w-[320px] md:min-w-[400px] lg:min-w-[420px]
                     rounded-[32px] bg-gradient-to-b from-[#141414] to-[#0b0b0b]
                     border border-white/5 hover:border-red-500/40
-                    p-8 transition-all duration-500 relative overflow-hidden"
+                    p-8 transition-all duration-500 relative overflow-hidden whitespace-normal"
                 >
                   <div className="absolute inset-0 opacity-0 hover:opacity-100 transition duration-500 pointer-events-none">
                     <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-red-500 to-transparent" />

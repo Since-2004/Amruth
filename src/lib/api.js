@@ -2,13 +2,17 @@ const API_URL = import.meta.env.VITE_API_URL || (import.meta.env.DEV ? "http://l
 
 async function request(path, options = {}) {
   const token = localStorage.getItem("amrut_token");
+  const isFormData = options.body instanceof FormData;
+
+  const headers = {
+    ...(isFormData ? {} : { "Content-Type": "application/json" }),
+    ...(token ? { Authorization: `Bearer ${token}` } : {}),
+    ...(options.headers || {}),
+  };
+
   const response = await fetch(`${API_URL}${path}`, {
-    headers: {
-      "Content-Type": "application/json",
-      ...(token ? { Authorization: `Bearer ${token}` } : {}),
-      ...(options.headers || {}),
-    },
     ...options,
+    headers,
   });
 
   const data = await response.json().catch(() => ({}));
@@ -125,6 +129,65 @@ export function updateBookingDiet(id, dietPlan) {
   });
 }
 
+export function updateBookingStatus(id, status) {
+  return request(`/owner/bookings/${id}`, {
+    method: "PUT",
+    body: JSON.stringify({ status }),
+  });
+}
+
 export function getClientBookings() {
   return request("/client/bookings");
+}
+
+export function getOwnerClients() {
+  return request("/owner/clients");
+}
+
+export function getOwnerEnrollments() {
+  return request("/owner/enrollments");
+}
+
+export function getTransformations() {
+  return request("/transformations");
+}
+
+export function createTransformation(payload) {
+  return request("/owner/transformations", {
+    method: "POST",
+    body: payload,
+  });
+}
+
+export function updateTransformation(id, payload) {
+  return request(`/owner/transformations/${id}`, {
+    method: "PUT",
+    body: payload,
+  });
+}
+
+export function deleteTransformation(id) {
+  return request(`/owner/transformations/${id}`, {
+    method: "DELETE",
+  });
+}
+
+export function createProgram(payload) {
+  return request("/owner/programs", {
+    method: "POST",
+    body: JSON.stringify(payload),
+  });
+}
+
+export function updateProgram(id, payload) {
+  return request(`/owner/programs/${id}`, {
+    method: "PUT",
+    body: JSON.stringify(payload),
+  });
+}
+
+export function deleteProgram(id) {
+  return request(`/owner/programs/${id}`, {
+    method: "DELETE",
+  });
 }

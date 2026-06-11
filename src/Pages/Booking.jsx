@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { motion } from "framer-motion";
 import { FaCalendarAlt, FaCheckCircle, FaClock, FaPhoneAlt, FaVideo } from "react-icons/fa";
-import { createBooking, getSlots, getOwnerSettings } from "../lib/api";
+import { createBooking, getSlots, getOwnerSettings, getPrograms } from "../lib/api";
 import { AnimatePresence } from "framer-motion";
 
 function formatSlot(date) {
@@ -35,6 +35,7 @@ function Booking() {
     goal: "",
     notes: "",
   });
+  const [dynamicPrograms, setDynamicPrograms] = useState([]);
 
   useEffect(() => {
     getSlots()
@@ -49,6 +50,12 @@ function Booking() {
         setUpiSettings({ id: data.settings.upiId, name: data.settings.upiName });
       }
     }).catch(console.error);
+
+    getPrograms().then((data) => {
+      if (data.programs) {
+        setDynamicPrograms(data.programs);
+      }
+    }).catch(console.error);
   }, []);
 
   const selectedSlot = slots.find((slot) => slot.id === selectedSlotId);
@@ -57,22 +64,34 @@ function Booking() {
     setFormData({ ...formData, [event.target.name]: event.target.value });
   };
 
-  const handleSubmit = async (event) => {
+  const handleSubmit = (event) => {
     event.preventDefault();
+    if (!formData.name || !formData.email || !formData.phone || !formData.goal) {
+      alert("Please fill all details");
+      return;
+    }
+    setShowSuccess(true);
+  };
+
+  const handleConfirmPayment = async () => {
     setIsSubmitting(true);
     setStatus({ type: "", message: "" });
-
     try {
       await createBooking({ ...formData, slotId: selectedSlotId });
-      setShowSuccess(true);
+      setShowSuccess(false);
+      setFormData({ name: user?.name || "", email: user?.email || "", phone: "", goal: "", notes: "", utrNumber: "" });
       const data = await getSlots();
       setSlots(data.slots);
+      alert("Booking & Payment Confirmed!");
     } catch (error) {
       setStatus({ type: "error", message: error.message });
     } finally {
       setIsSubmitting(false);
     }
   };
+
+  const selectedProgramObj = dynamicPrograms.find(p => p.title === formData.goal);
+  const selectedPrice = selectedProgramObj ? parseFloat(selectedProgramObj.price?.toString().replace(/,/g, '')) : 0;
 
   return (
     <section className="min-h-screen bg-[#050505] text-white px-6 py-28 relative overflow-hidden">
@@ -97,16 +116,23 @@ function Booking() {
                 <FaCheckCircle className="text-4xl text-green-500" />
               </div>
 
-              <h2 className="text-3xl font-black mb-2">Booking Confirmed</h2>
+              <h2 className="text-3xl font-black mb-2">Complete Payment</h2>
               <p className="text-gray-400 text-sm mb-6">
                 Please complete your payment below to secure your slot.
                 {!user && " Don't forget to create an account with the same email to view your diet plan and meet links."}
               </p>
 
+              {selectedPrice > 0 && (
+                <div className="mb-6 py-3 px-4 rounded-xl bg-red-600/10 border border-red-500/20 inline-block">
+                  <p className="text-sm text-gray-400 mb-1">Amount to Pay</p>
+                  <p className="text-3xl font-black text-red-500">₹{selectedPrice}</p>
+                </div>
+              )}
+
               {/* QR SECTION */}
               <div className="bg-white rounded-[24px] p-5 flex justify-center items-center mb-4">
                 <img
-                  src={`https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=upi://pay?pa=${upiSettings.id}&pn=${encodeURIComponent(upiSettings.name)}`}
+                  src={`https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(`upi://pay?pa=${upiSettings.id}&pn=${encodeURIComponent(upiSettings.name)}&am=${selectedPrice > 0 ? selectedPrice.toFixed(2) : ""}`)}`}
                   alt="QR Code"
                   className="w-[180px] h-[180px]"
                 />
@@ -118,34 +144,52 @@ function Booking() {
               {/* Direct App Links for Mobile */}
               <div className="flex flex-col gap-3 mb-8">
                 <a
-                  href={`tez://upi/pay?pa=${upiSettings.id}&pn=${encodeURIComponent(upiSettings.name)}`}
+                  href={`tez://upi/pay?pa=${upiSettings.id}&pn=${encodeURIComponent(upiSettings.name)}${selectedPrice > 0 ? `&am=${selectedPrice.toFixed(2)}` : ""}`}
                   className="w-full py-3 rounded-xl border border-white/10 hover:border-red-500 bg-black text-white text-center text-sm font-semibold transition-all"
                 >
                   Pay with GPay
                 </a>
                 <a
-                  href={`phonepe://pay?pa=${upiSettings.id}&pn=${encodeURIComponent(upiSettings.name)}`}
+                  href={`phonepe://pay?pa=${upiSettings.id}&pn=${encodeURIComponent(upiSettings.name)}${selectedPrice > 0 ? `&am=${selectedPrice.toFixed(2)}` : ""}`}
                   className="w-full py-3 rounded-xl border border-white/10 hover:border-[#5f259f] bg-black text-white text-center text-sm font-semibold transition-all"
                 >
                   Pay with PhonePe
                 </a>
                 <a
-                  href={`paytmmp://pay?pa=${upiSettings.id}&pn=${encodeURIComponent(upiSettings.name)}`}
+                  href={`paytmmp://pay?pa=${upiSettings.id}&pn=${encodeURIComponent(upiSettings.name)}${selectedPrice > 0 ? `&am=${selectedPrice.toFixed(2)}` : ""}`}
                   className="w-full py-3 rounded-xl border border-white/10 hover:border-[#00baf2] bg-black text-white text-center text-sm font-semibold transition-all"
                 >
                   Pay with Paytm
                 </a>
               </div>
 
-              <button
-                onClick={() => {
-                  setShowSuccess(false);
-                  setFormData({ name: user?.name || "", email: user?.email || "", phone: "", goal: "", notes: "" });
-                }}
-                className="w-full px-8 py-4 rounded-2xl bg-red-600 hover:bg-red-700 transition-all duration-300 font-semibold"
-              >
-                I have paid
-              </button>
+              <div className="mt-4 border-t border-white/10 pt-4 mb-6">
+                <p className="text-center text-sm font-semibold mb-3">After payment, enter your UTR Number below:</p>
+                <input 
+                  type="text" 
+                  placeholder="12-DIGIT UTR NO." 
+                  value={formData.utrNumber || ""} 
+                  onChange={(e) => setFormData({ ...formData, utrNumber: e.target.value })}
+                  maxLength="12"
+                  className="w-full bg-white/5 border border-white/10 focus:border-red-500 rounded-2xl px-5 py-4 outline-none transition text-center tracking-[4px] font-mono text-lg"
+                />
+              </div>
+
+              <div className="flex gap-3">
+                <button
+                  onClick={() => setShowSuccess(false)}
+                  className="w-1/3 px-4 py-4 rounded-2xl border border-white/10 hover:bg-white/5 transition-all duration-300 font-semibold"
+                >
+                  Cancel
+                </button>
+                <button
+                  onClick={handleConfirmPayment}
+                  disabled={isSubmitting}
+                  className="w-2/3 px-8 py-4 rounded-2xl bg-red-600 hover:bg-red-700 transition-all duration-300 font-semibold disabled:opacity-50"
+                >
+                  {isSubmitting ? "Confirming..." : "Confirm Booking"}
+                </button>
+              </div>
             </motion.div>
           </motion.div>
         )}
@@ -217,11 +261,18 @@ function Booking() {
               <input name="email" value={formData.email} onChange={handleChange} placeholder="Email" className="bg-black border border-white/10 rounded-2xl px-5 py-4 outline-none focus:border-[var(--brand-secondary)]" />
               <input name="phone" value={formData.phone} onChange={handleChange} placeholder="Phone" className="bg-black border border-white/10 rounded-2xl px-5 py-4 outline-none focus:border-[var(--brand-secondary)]" />
               <select name="goal" value={formData.goal} onChange={handleChange} className="bg-black border border-white/10 rounded-2xl px-5 py-4 outline-none focus:border-[var(--brand-secondary)] text-gray-400">
-                <option value="">Choose Goal</option>
-                <option>Fat Loss</option>
-                <option>Muscle Gain</option>
-                <option>Strength</option>
-                <option>Nutrition Planning</option>
+                <option value="">Choose Program</option>
+                {dynamicPrograms.map((p, i) => (
+                  <option key={i} value={p.title}>{p.title}</option>
+                ))}
+                {dynamicPrograms.length === 0 && (
+                  <>
+                    <option>Fat Loss Program</option>
+                    <option>Muscle Building</option>
+                    <option>Strength & Conditioning</option>
+                    <option>Elite Transformation</option>
+                  </>
+                )}
               </select>
             </div>
             <textarea name="notes" value={formData.notes} onChange={handleChange} rows="4" placeholder="Anything the coach should know?" className="bg-black border border-white/10 rounded-2xl px-5 py-4 outline-none focus:border-[var(--brand-secondary)] resize-none" />

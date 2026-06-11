@@ -19,8 +19,7 @@ function Header() {
     "Programs",
     "Booking",
     "Contact",
-    "Client",
-    "Owner",
+    "Login",
   ];
 
   return (

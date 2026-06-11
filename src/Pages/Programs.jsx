@@ -213,18 +213,17 @@ function Programs() {
 
                 <p className="text-gray-400 leading-relaxed text-sm">
                   {program.results}
-                </p>
 
+                    </p>
               </div>
 
               {/* CTA BUTTON */}
-             <Link to={"/Checkout"}>
+              <Link to="/checkout" state={{ program }} className="block mt-10">
               <motion.button
                 whileHover={{ scale: 1.03 }}
                 whileTap={{ scale: 0.97 }}
                 className="
                   relative z-10
-                  mt-10
                   w-full
                   py-4
                   rounded-xl
@@ -242,13 +241,8 @@ function Programs() {
               </motion.button>
                </Link>
             </motion.div>
-            
-
           ))}
-
         </div>
-
-        {/* ================= CTA SECTION ================= */}
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}

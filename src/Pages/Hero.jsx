@@ -23,7 +23,7 @@ function Hero() {
             </p>
           </div>
 
-          <h1 className="text-5xl sm:text-6xl lg:text-7xl font-black leading-[0.9] uppercase">
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black leading-[0.9] uppercase">
             Train With
             <span className="block text-[var(--brand-secondary)]">Structure.</span>
             Transform With
@@ -44,7 +44,7 @@ function Hero() {
             </Link>
             <Link
               to="/programs"
-              className="inline-flex items-center gap-3 px-7 py-4 rounded-full border border-white/15 hover:border-[var(--brand-secondary)] font-semibold transition-all"
+              className="inline-flex items-center gap-3 px-7 py-4 rounded-full border border-[var(--brand-secondary)] text-[var(--brand-secondary)] hover:bg-[var(--brand-secondary)] hover:text-white font-semibold transition-all"
             >
               View Programs
             </Link>
@@ -87,14 +87,14 @@ function Hero() {
           <img
             src={bgremoved}
             alt="Amruth fitness trainer"
-            className="absolute bottom-0 lg:left-[45%] left-1/2 -translate-x-1/2 h-[min(65vh,450px)] sm:h-[min(70vh,500px)] lg:h-[min(78vh,720px)] object-contain z-10 drop-shadow-2xl"
+            className="absolute bottom-0 lg:left-[40%] left-1/2 -translate-x-1/2 w-full max-w-[500px] lg:max-w-[700px] h-full max-h-[600px] lg:max-h-[800px] object-contain object-bottom z-10 drop-shadow-2xl"
           />
 
           <motion.div
             initial={{ opacity: 0, x: 28 }}
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.65, delay: 0.2 }}
-            className="absolute lg:right-[-40px] xl:right-[-100px] lg:top-[15%] bottom-6 right-4 sm:right-10 lg:bottom-auto z-20 w-[240px] lg:w-[280px] rounded-[20px] lg:rounded-[24px] border border-white/10 bg-black/60 backdrop-blur-xl p-4 lg:p-5 hidden sm:block"
+            className="absolute lg:-right-8 xl:-right-16 lg:top-[35%] xl:top-[30%] bottom-6 right-4 sm:right-10 lg:bottom-auto z-20 w-[240px] lg:w-[280px] rounded-[20px] lg:rounded-[24px] border border-white/10 bg-black/60 backdrop-blur-xl p-4 lg:p-5 hidden sm:block"
           >
             <div className="flex items-center gap-2 lg:gap-3 text-[var(--brand-secondary)]">
               <FaCalendarAlt />

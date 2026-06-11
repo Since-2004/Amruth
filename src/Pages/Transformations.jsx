@@ -1,48 +1,8 @@
-import { useState } from "react";
-import { submitFeedback } from "../lib/api";
-
-const transformations = [
-  {
-    id: 1,
-    name: "Arjun Malhotra",
-    role: "MMA Athlete",
-    result: "-12 KG • 16 Weeks",
-    before:
-      "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?q=80&w=1200&auto=format&fit=crop",
-    after:
-      "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?q=80&w=1200&auto=format&fit=crop",
-    review:
-      "The training rebuilt my conditioning, stamina, and confidence completely.",
-  },
-
-  {
-    id: 2,
-    name: "Rohit Verma",
-    role: "Software Engineer",
-    result: "+7 KG Muscle",
-    before:
-      "https://images.unsplash.com/photo-1546484959-f4b0c8c7c3b3?q=80&w=1200&auto=format&fit=crop",
-    after:
-      "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?q=80&w=1200&auto=format&fit=crop",
-    review:
-      "The structure and nutrition finally helped me stay disciplined and consistent.",
-  },
-
-  {
-    id: 3,
-    name: "Kabir Khan",
-    role: "Boxing Trainee",
-    result: "Strength +40%",
-    before:
-      "https://images.unsplash.com/photo-1518611012118-696072aa579a?q=80&w=1200&auto=format&fit=crop",
-    after:
-      "https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?q=80&w=1200&auto=format&fit=crop",
-    review:
-      "My explosiveness, endurance, and recovery improved massively within months.",
-  },
-];
+import { useState, useEffect } from "react";
+import { submitFeedback, getTransformations } from "../lib/api";
 
 const Testimonials = () => {
+  const [transformations, setTransformations] = useState([]);
   /* ================= FORM STATES ================= */
   const [formData, setFormData] = useState({
     name: "",
@@ -51,6 +11,12 @@ const Testimonials = () => {
   });
   const [status, setStatus] = useState({ type: "", message: "" });
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  useEffect(() => {
+    getTransformations().then(data => {
+      if (data.transformations) setTransformations(data.transformations);
+    }).catch(err => console.error("Failed to load transformations:", err));
+  }, []);
 
   /* ================= HANDLE INPUT ================= */
   const handleChange = (e) => {

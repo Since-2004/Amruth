@@ -7,6 +7,30 @@ import { z } from "zod";
 import { PrismaClient } from "@prisma/client";
 import { PrismaBetterSqlite3 } from "@prisma/adapter-better-sqlite3";
 import { execSync } from "child_process";
+import multer from "multer";
+import fs from "fs";
+import path from "path";
+import { fileURLToPath } from "url";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+const uploadsDir = path.join(__dirname, "../uploads");
+if (!fs.existsSync(uploadsDir)) {
+  fs.mkdirSync(uploadsDir, { recursive: true });
+}
+
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, uploadsDir);
+  },
+  filename: function (req, file, cb) {
+    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9);
+    cb(null, file.fieldname + '-' + uniqueSuffix + path.extname(file.originalname));
+  }
+});
+
+const upload = multer({ storage: storage });
 
 try {
   console.log("Ensuring database schema is up to date...");
@@ -29,6 +53,7 @@ const TOKEN_SECRET = process.env.TOKEN_SECRET || "change-this-secret-for-product
 
 app.use(cors());
 app.use(express.json({ limit: "1mb" }));
+app.use("/uploads", express.static(uploadsDir));
 
 const registerSchema = z.object({
   name: z.string().trim().min(2, "Name is required"),
@@ -61,6 +86,7 @@ const enrollmentSchema = z.object({
   phone: z.string().trim().min(7, "Phone is required"),
   goal: z.string().trim().min(1, "Goal is required"),
   paymentMethod: z.string().trim().min(1, "Payment method is required"),
+  utrNumber: z.string().trim().optional().or(z.literal("")),
 });
 
 function publicUser(user) {
@@ -146,6 +172,7 @@ const bookingSchema = z.object({
   phone: z.string().trim().min(7, "Phone is required"),
   goal: z.string().trim().min(1, "Goal is required"),
   notes: z.string().trim().optional().or(z.literal("")),
+  utrNumber: z.string().trim().optional().or(z.literal("")),
 });
 
 const themeSchema = z.object({
@@ -158,7 +185,22 @@ const ownerSettingSchema = z.object({
   upiId: z.string().trim().min(1, "UPI ID is required"),
   upiName: z.string().trim().min(1, "Name is required"),
   meetLink: z.string().trim().optional(),
-  elitePrice: z.string().trim().optional(),
+});
+
+const transformationSchema = z.object({
+  name: z.string().trim().min(2, "Name is required"),
+  role: z.string().trim().min(2, "Role is required"),
+  result: z.string().trim().min(1, "Result is required"),
+  review: z.string().trim().min(5, "Review is required"),
+});
+
+const programSchema = z.object({
+  title: z.string().trim().min(2, "Title is required"),
+  duration: z.string().trim().min(1, "Duration is required"),
+  schedule: z.string().trim().min(1, "Schedule is required"),
+  price: z.coerce.number().int().min(0, "Price must be positive"),
+  goals: z.array(z.string().trim().min(1, "Goal is required")).min(1, "At least one goal is required"),
+  results: z.string().trim().min(5, "Results are required"),
 });
 
 app.get("/api/health", (req, res) => {
@@ -205,6 +247,16 @@ app.get(
       .filter((slot) => slot.availableSeats > 0);
 
     res.json({ slots: availableSlots });
+  }),
+);
+
+app.get(
+  "/api/transformations",
+  asyncRoute(async (req, res) => {
+    const transformations = await prisma.transformation.findMany({
+      orderBy: { createdAt: "desc" },
+    });
+    res.json({ transformations });
   }),
 );
 
@@ -285,6 +337,8 @@ app.post(
       return res.status(400).json({ error: "Selected program is not available" });
     }
 
+    const isValidUtr = input.paymentMethod.toLowerCase() === "upi" && input.utrNumber && input.utrNumber.length === 12;
+
     const enrollment = await prisma.enrollment.create({
       data: {
         programId: program.id,
@@ -295,6 +349,8 @@ app.post(
         phone: input.phone,
         goal: input.goal,
         paymentMethod: input.paymentMethod,
+        utrNumber: input.utrNumber || null,
+        paymentStatus: isValidUtr ? "completed" : "pending_verification",
       },
     });
     await createNotification("enrollment", "New program enrollment", `${enrollment.name} enrolled for ${enrollment.programTitle}.`);
@@ -327,16 +383,20 @@ app.post(
       meetLink = settings?.meetLink || null;
     }
 
+    const isValidUtr = input.utrNumber && input.utrNumber.length === 12;
+
     const booking = await prisma.booking.create({
       data: {
         slotId: slot.id,
-        userId: user?.id,
+        userId: user?.id || null,
         name: input.name,
         email: input.email,
         phone: input.phone,
         goal: input.goal,
-        notes: input.notes || null,
+        notes: input.notes,
         meetLink,
+        utrNumber: input.utrNumber || null,
+        status: isValidUtr ? "confirmed" : "pending",
       },
     });
 
@@ -345,6 +405,23 @@ app.post(
     res.status(201).json({ booking });
   }),
 );
+
+async function autoCleanBookings(bookings) {
+  const now = new Date();
+  for (const booking of bookings) {
+    if (booking.slot && new Date(booking.slot.endsAt) < now) {
+      const needsUpdate = booking.dietPlan || booking.status !== "COMPLETED";
+      if (needsUpdate) {
+        await prisma.booking.update({
+          where: { id: booking.id },
+          data: { dietPlan: null, status: "COMPLETED" },
+        });
+        booking.dietPlan = null;
+        booking.status = "COMPLETED";
+      }
+    }
+  }
+}
 
 app.get(
   "/api/client/bookings",
@@ -360,6 +437,7 @@ app.get(
       orderBy: { createdAt: "desc" },
     });
 
+    await autoCleanBookings(bookings);
     res.json({ bookings });
   }),
 );
@@ -386,7 +464,43 @@ app.get(
       orderBy: { createdAt: "desc" },
     });
 
+    await autoCleanBookings(bookings);
     res.json({ bookings });
+  }),
+);
+
+app.get(
+  "/api/owner/clients",
+  requireOwner(async (req, res) => {
+    const clients = await prisma.user.findMany({
+      where: { role: "CLIENT" },
+      orderBy: { createdAt: "desc" },
+      include: { bookings: { include: { slot: true } } },
+    });
+
+    const enrollments = await prisma.enrollment.findMany({ include: { program: true } });
+
+    const clientsWithDetails = clients.map((client) => {
+      // Remove passwordHash for security
+      const { passwordHash, ...safeClient } = client;
+      return {
+        ...safeClient,
+        enrollments: enrollments.filter(e => e.email === client.email)
+      };
+    });
+
+    res.json({ clients: clientsWithDetails });
+  }),
+);
+
+app.get(
+  "/api/owner/enrollments",
+  requireOwner(async (req, res) => {
+    const enrollments = await prisma.enrollment.findMany({
+      include: { program: true },
+      orderBy: { createdAt: "desc" },
+    });
+    res.json({ enrollments });
   }),
 );
 
@@ -394,11 +508,15 @@ app.put(
   "/api/owner/bookings/:id",
   requireOwner(async (req, res) => {
     const { id } = req.params;
-    const { dietPlan } = req.body;
+    const { dietPlan, status } = req.body;
     
+    const dataToUpdate = {};
+    if (dietPlan !== undefined) dataToUpdate.dietPlan = dietPlan;
+    if (status !== undefined) dataToUpdate.status = status;
+
     const booking = await prisma.booking.update({
       where: { id },
-      data: { dietPlan },
+      data: dataToUpdate,
     });
 
     res.json({ booking });
@@ -447,6 +565,67 @@ app.post(
   }),
 );
 
+app.post(
+  "/api/owner/transformations",
+  upload.fields([{ name: "before", maxCount: 1 }, { name: "after", maxCount: 1 }]),
+  requireOwner(async (req, res) => {
+    const input = transformationSchema.parse(req.body);
+    const beforeFile = req.files?.before?.[0];
+    const afterFile = req.files?.after?.[0];
+
+    if (!beforeFile || !afterFile) {
+      return res.status(400).json({ error: "Both Before and After images are required." });
+    }
+
+    const API_BASE = req.protocol + "://" + req.get("host");
+
+    const transformation = await prisma.transformation.create({
+      data: {
+        ...input,
+        before: `${API_BASE}/uploads/${beforeFile.filename}`,
+        after: `${API_BASE}/uploads/${afterFile.filename}`,
+      },
+    });
+    res.status(201).json({ transformation });
+  }),
+);
+
+app.put(
+  "/api/owner/transformations/:id",
+  upload.fields([{ name: "before", maxCount: 1 }, { name: "after", maxCount: 1 }]),
+  requireOwner(async (req, res) => {
+    const { id } = req.params;
+    const input = transformationSchema.parse(req.body);
+    const beforeFile = req.files?.before?.[0];
+    const afterFile = req.files?.after?.[0];
+
+    const API_BASE = req.protocol + "://" + req.get("host");
+    const dataToUpdate = { ...input };
+
+    if (beforeFile) {
+      dataToUpdate.before = `${API_BASE}/uploads/${beforeFile.filename}`;
+    }
+    if (afterFile) {
+      dataToUpdate.after = `${API_BASE}/uploads/${afterFile.filename}`;
+    }
+
+    const transformation = await prisma.transformation.update({
+      where: { id },
+      data: dataToUpdate,
+    });
+    res.json({ transformation });
+  }),
+);
+
+app.delete(
+  "/api/owner/transformations/:id",
+  requireOwner(async (req, res) => {
+    const { id } = req.params;
+    await prisma.transformation.delete({ where: { id } });
+    res.json({ ok: true });
+  }),
+);
+
 app.put(
   "/api/owner/theme",
   requireOwner(async (req, res) => {
@@ -485,6 +664,60 @@ app.put(
 
     await createNotification("settings", "Owner settings updated", "Owner updated UPI and Meet settings.");
     res.json({ settings });
+  }),
+);
+
+app.post(
+  "/api/owner/programs",
+  requireOwner(async (req, res) => {
+    const input = programSchema.parse(req.body);
+    const id = input.title.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)+/g, "");
+    
+    // Ensure ID is unique
+    const existing = await prisma.program.findUnique({ where: { id } });
+    const finalId = existing ? `${id}-${Date.now()}` : id;
+
+    const program = await prisma.program.create({
+      data: {
+        id: finalId,
+        title: input.title,
+        duration: input.duration,
+        schedule: input.schedule,
+        price: input.price,
+        goals: JSON.stringify(input.goals),
+        results: input.results,
+      },
+    });
+    res.status(201).json({ program: parseGoals(program) });
+  }),
+);
+
+app.put(
+  "/api/owner/programs/:id",
+  requireOwner(async (req, res) => {
+    const { id } = req.params;
+    const input = programSchema.parse(req.body);
+    const program = await prisma.program.update({
+      where: { id },
+      data: {
+        title: input.title,
+        duration: input.duration,
+        schedule: input.schedule,
+        price: input.price,
+        goals: JSON.stringify(input.goals),
+        results: input.results,
+      },
+    });
+    res.json({ program: parseGoals(program) });
+  }),
+);
+
+app.delete(
+  "/api/owner/programs/:id",
+  requireOwner(async (req, res) => {
+    const { id } = req.params;
+    await prisma.program.delete({ where: { id } });
+    res.json({ ok: true });
   }),
 );
 

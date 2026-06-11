@@ -1,3 +1,4 @@
+import "dotenv/config";
 import { mkdir } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
@@ -135,7 +136,7 @@ const existingOwner = db.prepare("SELECT id FROM User WHERE email = ?").get(owne
 
 if (!existingOwner) {
   db.prepare(
-    "INSERT INTO User (id, name, email, passwordHash, role) VALUES (?, ?, ?, ?, 'OWNER')",
+    "INSERT INTO User (id, name, email, passwordHash, role, updatedAt) VALUES (?, ?, ?, ?, 'OWNER', CURRENT_TIMESTAMP)",
   ).run(`owner_${Date.now().toString(36)}`, "Owner", ownerEmail, bcrypt.hashSync(ownerPassword, 12));
 }
 

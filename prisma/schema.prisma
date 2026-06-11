@@ -64,6 +64,7 @@ model Enrollment {
   goal          String
   paymentMethod String
   paymentStatus String   @default("pending_verification")
+  utrNumber     String?
   createdAt     DateTime @default(now())
   updatedAt     DateTime @updatedAt
 }
@@ -95,6 +96,7 @@ model Booking {
   dietPlan  String?
   meetLink  String?
   status    String      @default("pending")
+  utrNumber String?
   createdAt DateTime    @default(now())
   updatedAt DateTime    @updatedAt
 }
@@ -123,4 +125,16 @@ model OwnerSetting {
   meetLink   String   @default("")
   elitePrice String   @default("7,999")
   updatedAt  DateTime @updatedAt
+}
+
+model Transformation {
+  id        String   @id @default(cuid())
+  name      String
+  role      String
+  result    String
+  before    String
+  after     String
+  review    String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }

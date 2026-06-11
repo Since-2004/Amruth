@@ -1,5 +1,6 @@
 import { useRef, useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { useLocation } from "react-router-dom";
 
 import {
   FaArrowLeft,
@@ -12,17 +13,19 @@ import {
   FaUniversity,
   FaPaypal,
 } from "react-icons/fa";
-import { createEnrollment, getOwnerSettings } from "../lib/api";
+import { createEnrollment, getOwnerSettings, getPrograms } from "../lib/api";
 
 function Checkout() {
   const detailsRef = useRef(null);
-  const paymentRef = useRef(null);
+  const location = useLocation();
+  const passedProgram = location.state?.program;
 
   const [selectedPayment, setSelectedPayment] = useState("UPI");
   const [showSuccess, setShowSuccess] = useState(false);
   const [status, setStatus] = useState({ type: "", message: "" });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [upiSettings, setUpiSettings] = useState({ id: "amruthfitness@upi", name: "Amruth Fitness" });
+  const [dynamicGoals, setDynamicGoals] = useState([]);
   const [elitePrice, setElitePrice] = useState("7,999");
 
   useEffect(() => {
@@ -30,8 +33,20 @@ function Checkout() {
       if (data.settings) {
         setUpiSettings({ id: data.settings.upiId, name: data.settings.upiName });
         if (data.settings.elitePrice) {
-          setElitePrice(data.settings.elitePrice);
+          // Backward compatibility check
         }
+      }
+    }).catch(console.error);
+
+    getPrograms().then((data) => {
+      if (data.programs) {
+        const allGoals = new Set();
+        data.programs.forEach(p => {
+          if (Array.isArray(p.goals)) {
+            p.goals.forEach(g => allGoals.add(g));
+          }
+        });
+        setDynamicGoals(Array.from(allGoals));
       }
     }).catch(console.error);
   }, []);
@@ -41,15 +56,26 @@ function Checkout() {
     email: "",
     phone: "",
     goal: "",
+    utrNumber: "",
   });
 
-  const selectedPlan = {
+  const selectedPlan = passedProgram ? {
+    id: passedProgram.id,
+    title: passedProgram.title,
+    duration: passedProgram.duration,
+    price: passedProgram.price,
+    goal: Array.isArray(passedProgram.goals) ? passedProgram.goals.join(" + ") : passedProgram.goals,
+    schedule: passedProgram.schedule,
+  } : {
+    id: "elite-transformation",
     title: "Elite Transformation",
     duration: "3 Months",
-    price: `₹${elitePrice}`,
+    price: elitePrice,
     goal: "Fat Loss + Muscle Gain",
     schedule: "5 Days / Week",
   };
+
+  const parsedPrice = parseFloat(selectedPlan.price?.toString().replace(/,/g, ''));
 
   const handleSubmit = async () => {
     if (
@@ -68,11 +94,11 @@ function Checkout() {
     try {
       await createEnrollment({
         ...formData,
-        programId: "elite-transformation",
+        programId: selectedPlan.id,
         paymentMethod: selectedPayment,
       });
       setShowSuccess(true);
-      setFormData({ name: "", email: "", phone: "", goal: "" });
+      setFormData({ name: "", email: "", phone: "", goal: "", utrNumber: "" });
     } catch (error) {
       setStatus({ type: "error", message: error.message });
     } finally {
@@ -403,10 +429,17 @@ function Checkout() {
                 >
 
                   <option value="">Choose Goal</option>
-                  <option>Fat Loss</option>
-                  <option>Muscle Gain</option>
-                  <option>Strength</option>
-                  <option>Conditioning</option>
+                  {dynamicGoals.map((g, i) => (
+                    <option key={i} value={g}>{g}</option>
+                  ))}
+                  {dynamicGoals.length === 0 && (
+                    <>
+                      <option>Fat Loss</option>
+                      <option>Muscle Gain</option>
+                      <option>Strength</option>
+                      <option>Conditioning</option>
+                    </>
+                  )}
 
                 </select>
 
@@ -501,7 +534,7 @@ function Checkout() {
                   <div className="bg-white rounded-[28px] p-6 flex justify-center items-center">
 
                     <img
-                      src={`https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=upi://pay?pa=${upiSettings.id}&pn=${encodeURIComponent(upiSettings.name)}`}
+                      src={`https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=${encodeURIComponent(`upi://pay?pa=${upiSettings.id}&pn=${encodeURIComponent(upiSettings.name)}${parsedPrice > 0 ? `&am=${parsedPrice.toFixed(2)}` : ""}`)}`}
                       alt="QR Code"
                       className="w-[230px] h-[230px]"
                     />
@@ -520,28 +553,41 @@ function Checkout() {
 
                   </div>
 
+                  <div className="mt-6 border-t border-white/10 pt-6">
+                    <p className="text-center text-sm font-semibold mb-3">After payment, enter your UTR Number below:</p>
+                    <input 
+                      type="text" 
+                      placeholder="12-DIGIT UTR NO." 
+                      value={formData.utrNumber} 
+                      onChange={(e) => setFormData({ ...formData, utrNumber: e.target.value })}
+                      maxLength="12"
+                      className="w-full bg-white/5 border border-white/10 focus:border-red-500 rounded-2xl px-5 py-4 outline-none transition text-center tracking-[4px] font-mono text-lg"
+                    />
+                    <p className="text-xs text-gray-500 text-center mt-2">Required to instantly auto-validate payment</p>
+                  </div>
+
                   {/* Direct App Links for Mobile */}
                   <div className="mt-6 flex flex-col gap-3">
                     <a
-                      href={`tez://upi/pay?pa=${upiSettings.id}&pn=${encodeURIComponent(upiSettings.name)}`}
+                      href={`tez://upi/pay?pa=${upiSettings.id}&pn=${encodeURIComponent(upiSettings.name)}${parsedPrice > 0 ? `&am=${parsedPrice.toFixed(2)}` : ""}`}
                       className="w-full py-3 rounded-xl border border-white/10 hover:border-red-500 bg-black text-white text-center font-semibold transition-all"
                     >
                       Pay with GPay
                     </a>
                     <a
-                      href={`phonepe://pay?pa=${upiSettings.id}&pn=${encodeURIComponent(upiSettings.name)}`}
+                      href={`phonepe://pay?pa=${upiSettings.id}&pn=${encodeURIComponent(upiSettings.name)}${parsedPrice > 0 ? `&am=${parsedPrice.toFixed(2)}` : ""}`}
                       className="w-full py-3 rounded-xl border border-white/10 hover:border-[#5f259f] bg-black text-white text-center font-semibold transition-all"
                     >
                       Pay with PhonePe
                     </a>
                     <a
-                      href={`paytmmp://pay?pa=${upiSettings.id}&pn=${encodeURIComponent(upiSettings.name)}`}
+                      href={`paytmmp://pay?pa=${upiSettings.id}&pn=${encodeURIComponent(upiSettings.name)}${parsedPrice > 0 ? `&am=${parsedPrice.toFixed(2)}` : ""}`}
                       className="w-full py-3 rounded-xl border border-white/10 hover:border-[#00baf2] bg-black text-white text-center font-semibold transition-all"
                     >
                       Pay with Paytm
                     </a>
                     <a
-                      href={`upi://pay?pa=${upiSettings.id}&pn=${encodeURIComponent(upiSettings.name)}`}
+                      href={`upi://pay?pa=${upiSettings.id}&pn=${encodeURIComponent(upiSettings.name)}${parsedPrice > 0 ? `&am=${parsedPrice.toFixed(2)}` : ""}`}
                       className="w-full py-3 rounded-xl bg-red-600 hover:bg-red-700 text-white text-center font-semibold transition-all"
                     >
                       Open any UPI App
