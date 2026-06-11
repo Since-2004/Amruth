@@ -98,7 +98,8 @@ function Contact() {
           <div className="mt-12 space-y-6">
 
             {/* PHONE */}
-            <motion.div
+            <motion.a
+              href="tel:+919876543210"
               whileHover={{ x: 6 }}
               className="flex items-center gap-4 py-5 border-b border-white/5 hover:border-brand-secondary/30 transition-all duration-300"
             >
@@ -121,10 +122,11 @@ function Contact() {
 
               </div>
 
-            </motion.div>
+            </motion.a>
 
             {/* EMAIL */}
-            <motion.div
+            <motion.a
+              href="mailto:amruthfitness@gmail.com"
               whileHover={{ x: 6 }}
               className="flex items-center gap-4 py-5 border-b border-white/5 hover:border-brand-secondary/30 transition-all duration-300"
             >
@@ -147,10 +149,13 @@ function Contact() {
 
               </div>
 
-            </motion.div>
+            </motion.a>
 
             {/* LOCATION */}
-            <motion.div
+            <motion.a
+              href="https://maps.google.com/?q=Bangalore,India"
+              target="_blank"
+              rel="noopener noreferrer"
               whileHover={{ x: 6 }}
               className="flex items-center gap-4 py-5 border-b border-white/5 hover:border-brand-secondary/30 transition-all duration-300"
             >
@@ -173,30 +178,36 @@ function Contact() {
 
               </div>
 
-            </motion.div>
+            </motion.a>
 
           </div>
 
           {/* SOCIALS */}
           <div className="flex gap-4 mt-10">
 
-            <motion.div
+            <motion.a
+              href="https://instagram.com"
+              target="_blank"
+              rel="noopener noreferrer"
               whileHover={{ y: -5 }}
               className="w-12 h-12 rounded-xl border border-white/5 bg-white/[0.03] flex items-center justify-center text-lg hover:border-brand-secondary hover:text-brand-secondary transition-all duration-300 cursor-pointer"
             >
 
               <FaInstagram />
 
-            </motion.div>
+            </motion.a>
 
-            <motion.div
+            <motion.a
+              href="https://wa.me/919876543210"
+              target="_blank"
+              rel="noopener noreferrer"
               whileHover={{ y: -5 }}
               className="w-12 h-12 rounded-xl border border-white/5 bg-white/[0.03] flex items-center justify-center text-lg hover:border-brand-secondary hover:text-brand-secondary transition-all duration-300 cursor-pointer"
             >
 
               <FaWhatsapp />
 
-            </motion.div>
+            </motion.a>
 
           </div>
 

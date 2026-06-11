@@ -221,13 +221,20 @@ function Footer() {
 
             {/* SOCIALS */}
             <div className="flex gap-4 mt-7 text-xl">
-              {[FaInstagram, FaWhatsapp, FaFacebook].map((Icon, i) => (
-                <motion.div
+              {[
+                { Icon: FaInstagram, href: "https://instagram.com" },
+                { Icon: FaWhatsapp, href: "https://wa.me/919876543210" },
+                { Icon: FaFacebook, href: "https://facebook.com" }
+              ].map(({ Icon, href }, i) => (
+                <motion.a
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   whileHover={{ y: -5 }}
                   key={i}
                   className="w-12 h-12 rounded-2xl border border-white/10 bg-white/5 flex items-center justify-center hover:border-brand-secondary hover:text-brand-secondary transition-all duration-300 cursor-pointer" >
                   <Icon />
-                </motion.div>
+                </motion.a>
               ))}
 
             </div>
@@ -323,19 +330,22 @@ function Footer() {
                   icon: <FaPhoneAlt />,
                   title: "Phone",
                   value: "+91 98765 43210",
+                  href: "tel:+919876543210",
                 },
                 {
                   icon: <FaEnvelope />,
                   title: "Email",
                   value: "amruthfitness@gmail.com",
+                  href: "mailto:amruthfitness@gmail.com",
                 },
                 {
                   icon: <FaMapMarkerAlt />,
                   title: "Location",
                   value: "Bangalore, India",
+                  href: "https://maps.google.com/?q=Bangalore,India",
                 },
               ].map((item, i) => (
-                <div key={i} className="flex gap-4 items-start">
+                <a href={item.href} target="_blank" rel="noopener noreferrer" key={i} className="flex gap-4 items-start hover:opacity-80 transition-opacity">
 
                   <div className="w-11 h-11 rounded-xl bg-white/5 border border-white/10 flex items-center justify-center text-brand-secondary">
                     {item.icon}
@@ -350,7 +360,7 @@ function Footer() {
                       {item.value}
                     </h5>
                   </div>
-                </div>
+                </a>
               ))}
             </div>
           </div>
