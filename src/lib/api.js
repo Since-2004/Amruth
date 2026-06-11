@@ -1,4 +1,11 @@
-const API_URL = import.meta.env.VITE_API_URL || (import.meta.env.DEV ? "http://localhost:5000/api" : "https://amruth.onrender.com/api");
+let API_URL = import.meta.env.VITE_API_URL || (import.meta.env.DEV ? "http://localhost:5000/api" : "https://amruth.onrender.com/api");
+
+if (API_URL.endsWith('/')) {
+  API_URL = API_URL.slice(0, -1);
+}
+if (!API_URL.endsWith('/api')) {
+  API_URL = `${API_URL}/api`;
+}
 
 async function request(path, options = {}) {
   const token = localStorage.getItem("amrut_token");
