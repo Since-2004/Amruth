@@ -224,7 +224,6 @@ function Footer() {
               {[
                 { Icon: FaInstagram, href: "https://www.instagram.com/amrut_ascend.fit_official?igsh=Yjc1bmZpNTRucGho" },
                 { Icon: FaWhatsapp, href: "https://wa.me/917996131812" },
-                { Icon: FaFacebook, href: "https://facebook.com" }
               ].map(({ Icon, href }, i) => (
                 <motion.a
                   href={href}
