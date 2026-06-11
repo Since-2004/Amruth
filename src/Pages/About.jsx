@@ -36,10 +36,10 @@ function About() {
             <div className="relative">
               <img
                 src={bgremoved}
-                className="w-full h-[420px] object-cover rounded-3xl"
+                className="w-full h-[420px] object-cover object-top rounded-3xl"
               />
 
-              <div className="absolute top-0 right-0 h-full w-1/3 bg-gradient-to-r from-black/80 to-transparent"></div>
+              <div className="absolute inset-0 bg-gradient-to-r from-transparent via-transparent to-[#050505]"></div>
             </div>
 
             <div>
@@ -66,10 +66,10 @@ function About() {
             <div className="relative order-1 md:order-2">
               <img
                 src={bgremoved}
-                className="w-full h-[420px] object-cover rounded-3xl"
+                className="w-full h-[420px] object-cover object-top rounded-3xl scale-x-[-1]"
               />
 
-              <div className="absolute top-0 left-0 h-full w-1/3 bg-gradient-to-l from-black/80 to-transparent"></div>
+              <div className="absolute inset-0 bg-gradient-to-l from-transparent via-transparent to-[#050505]"></div>
             </div>
 
           </div>
